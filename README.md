@@ -1,3 +1,46 @@
+# Dual Blog Frontend 博客前端
+
+
+### 
+## Command 运行命令 初次本地部署
+
+在一台什么都没有安装的 Linux 机器上部署一个 React 应用通常需要以下步骤
+
+安装 Node.js 和 npm: 首先，您需要安装 Node.js 和 npm，因为 React 应用是基于 Node.js 的。您可以从 Node.js 的官方网站下载适用于您的 Linux 发行版的安装包，或者使用包管理工具进行安装。
+
+```bash
+sudo apt update
+sudo apt install nodejs npm
+```
+
+```bash
+npm install -g create-react-app
+```
+
+下载安装依赖
+```shell
+npm install
+```
+
+启动React应用
+```shell
+npm start
+```
+
+## 调用接口
+访问
+```
+http://localhost:8080/blog/posts
+```
+如果应用正常运行，应当能看到
+```json
+{
+    "id": 1,
+    "title": "Greeting!", 
+    "content": "Hello, World."
+}
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
