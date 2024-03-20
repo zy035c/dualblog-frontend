@@ -19,7 +19,8 @@ npm install -g create-react-app
 
 下载安装依赖
 ```shell
-npm install
+npm install react-router-dom
+npm install tailwindcss
 ```
 
 启动React应用
