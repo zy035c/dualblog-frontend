@@ -34,7 +34,7 @@ const DemoHeader = () => {
         <HeaderOption to="./home" text="Primer!" />
         <HeaderOption to="/" text="Home" />
         <HeaderOption to="./products" text="Products" />
-        <HeaderOption to="./posts" text="Posts" />
+        <HeaderOption to="./posts" text="Blog Posts" />
         <HeaderOption to="./#pricing" text="Pricing" />
       </div>
     </div>

@@ -17,6 +17,11 @@ sudo apt install nodejs npm
 npm install -g create-react-app
 ```
 
+如果出现`?==`运算符报错
+```shell
+nvm use 18
+```
+
 下载安装依赖
 ```shell
 npm install react-router-dom
@@ -30,17 +35,12 @@ npm start
 
 ## 调用接口
 访问
-```
-http://localhost:8080/blog/posts
-```
-如果应用正常运行，应当能看到
-```json
-{
-    "id": 1,
-    "title": "Greeting!", 
-    "content": "Hello, World."
-}
-```
+`http://localhost:3000/`
+
+如果应用正常运行，应当能看到前端页面。
+
+点击Navigation Header的`Blog Posts`调用  
+``GET http://127.0.0.1:8080/blog/posts``
 
 # Getting Started with Create React App
 
