@@ -5,6 +5,7 @@ import DemoAbout from './about/about';
 import DemoHome from './home/home';
 
 import Posts from './tblog/tblog';
+import SignUp from './user/sign_up';
 
 function Products() {
   return <h2>About</h2>;
@@ -36,6 +37,7 @@ const DemoHeader = () => {
         <HeaderOption to="./products" text="Products" />
         <HeaderOption to="./posts" text="Blog Posts" />
         <HeaderOption to="./#pricing" text="Pricing" />
+        <HeaderOption to="./signup" text="Sign Up" />
       </div>
     </div>
   )
@@ -54,6 +56,7 @@ const StartPage = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/posts/*" element={<Posts />} />
         <Route path="/#pricing" element={<Pricing />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
       <div> 
         Pathname: <b>{pathname}</b><br />
