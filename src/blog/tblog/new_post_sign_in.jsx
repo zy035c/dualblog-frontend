@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理�
 const NewPostSignIn = ({ isLoggedIn, setIsLoggedIn }) => {
   //   const isLoggedIn = !!localStorage.getItem("dualblog-token");
 
-    const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(true);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(true);
   return (
     <div className="class m-auto flex-row justify-center items-center">
       {isLoginDialogOpen && !isLoggedIn && (
         <LoginPanel setIsLoginDialogOpen={{ setIsLoginDialogOpen }} />
       )}
-      <BlogWriter isLoggedIn={{ isLoggedIn }}/>
+      <BlogWriter isLoggedIn={{ isLoggedIn }} />
     </div>
   );
 };
