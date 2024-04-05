@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 import DemoAbout from './about/about';
@@ -6,6 +6,7 @@ import DemoHome from './home/home';
 
 import Posts from './tblog/tblog';
 import SignUp from './user/sign_up';
+import NewPostSignIn from './tblog/new_post_sign_in';
 
 function Products() {
   return <h2>About</h2>;
@@ -38,12 +39,17 @@ const DemoHeader = () => {
         <HeaderOption to="./posts" text="Blog Posts" />
         <HeaderOption to="./#pricing" text="Pricing" />
         <HeaderOption to="./signup" text="Sign Up" />
+        {/* <HeaderOption to="./newPost" text="New Post" /> */}
+        <HeaderOption to="./write_post" text="Write Post" />
       </div>
     </div>
   )
 };
 
 const StartPage = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const location = useLocation();
   const { hash, pathname, search } = location;
   return (
@@ -57,6 +63,7 @@ const StartPage = () => {
         <Route path="/posts/*" element={<Posts />} />
         <Route path="/#pricing" element={<Pricing />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/write_post" element={<NewPostSignIn isLoggedIn={{isLoggedIn}} setIsLoggedIn={{setIsLoggedIn}} />} />
       </Routes>
       <div> 
         Pathname: <b>{pathname}</b><br />

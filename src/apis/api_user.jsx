@@ -12,3 +12,12 @@ const createNewUser = async (fromData) => {
 };
 
 export { getAllUser, createNewUser };
+
+const checkLogin = async (fromData) => {
+  const parsedData = await simplePost(
+    "/user/check_login",
+    "checkLogin",
+    fromData
+  );
+  return parsedData;
+};

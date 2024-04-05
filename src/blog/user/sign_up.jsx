@@ -116,7 +116,7 @@ const SignUp = () => {
           type="tel"
           id="phoneNumber"
           name="phoneNumber"
-          value={formData.phoneNumber}
+          value={formData.phone}
           onChange={handleChange}
           className="mt-1 p-2 border rounded-md w-full"
         />
