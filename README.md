@@ -26,6 +26,7 @@ nvm use 18
 ```shell
 npm install react-router-dom
 npm install tailwindcss
+npm install framer-motion
 ```
 
 启动React应用

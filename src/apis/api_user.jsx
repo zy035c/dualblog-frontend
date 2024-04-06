@@ -11,13 +11,32 @@ const createNewUser = async (fromData) => {
   return parsedData;
 };
 
-export { getAllUser, createNewUser };
-
 const checkLogin = async (fromData) => {
-  const parsedData = await simplePost(
-    "/user/check_login",
-    "checkLogin",
-    fromData
-  );
-  return parsedData;
+  /* write an api to check if user is logged in */
+  /* TODO: Implement this function */
+
+  // const parsedData = await simplePost(
+  //   "/user/check_login",
+  //   "checkLogin",
+  //   fromData
+  // );
+  const parsedData = null;
+  return {"status": "success", "data": parsedData};
 };
+
+const userLogin = async (fromData) => {
+  /* TODO: Implement this function */
+  // const parsedData = await simplePost("/user/login", "login", fromData);
+  return {"status": "success", "data": {
+    "dualblog-user-token": "mock-token",
+  }};
+}
+
+const userLogout = async (fromData) => {
+  /* write an api to logout user */
+
+  // const parsedData = await simplePost("/user/logout", "logout", fromData);
+  return {"status": "success", "data": null};
+}
+
+export { getAllUser, createNewUser, checkLogin, userLogin, userLogout };

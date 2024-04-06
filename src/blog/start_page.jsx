@@ -1,55 +1,48 @@
-import React, { useState } from 'react';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 
-import DemoAbout from './about/about';
-import DemoHome from './home/home';
+import DemoAbout from "./about/about";
+import { HomePage } from "./home/home";
+import PrimeList from "./home/prime_list";
 
-import Posts from './tblog/tblog';
-import SignUp from './user/sign_up';
-import NewPostSignIn from './tblog/new_post_sign_in';
+import Posts from "./tblog/tblog";
+import SignUp from "./user/sign_up";
+import NewPostSignIn from "./tblog/new_post_sign_in";
+import UserDropdown from "./user/user_dropdown";
 
-function Products() {
-  return <h2>About</h2>;
-}
-
-function Pricing() {
-  return <h2>Pricing</h2>;
-}
-
-const HeaderOption = ({to, text}) => {
+const HeaderOption = ({ to, text }) => {
   return (
-    <Link to={to} className="transition-colors duration-300 ease-in-out hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md">
+    <Link
+      to={to}
+      className="transition-colors duration-300 ease-in-out hover:bg-pigliver-200 text-white hover:text-pigliver-700 px-3 py-2 rounded-md"
+    >
       {text}
     </Link>
-  )
-}
+  );
+};
 
 const DemoHeader = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-
-      <div class="bg-blue-200 rounded-md shadow-md p-4 flex space-x-4">
-        <HeaderOption to="./about" text="WhatAbout" />
-        <HeaderOption to="./home" text="Primer!" />
-        <HeaderOption to="/" text="Home" />
-        <HeaderOption to="./products" text="Products" />
-        <HeaderOption to="./posts" text="Blog Posts" />
-        <HeaderOption to="./#pricing" text="Pricing" />
-        <HeaderOption to="./signup" text="Sign Up" />
-        {/* <HeaderOption to="./newPost" text="New Post" /> */}
-        <HeaderOption to="./write_post" text="Write Post" />
+      <div className="bg-pigliver-400 rounded-md shadow-md p-2 flex justify-between items-center">
+        <div className="flex space-x-2 flex-row">
+          <HeaderOption to="./about" text="WhatAbout" />
+          <HeaderOption to="./primer" text="Primer!" />
+          <HeaderOption to="/" text="Home" />
+          <HeaderOption to="./posts" text="Blog Posts" />
+          <HeaderOption to="./signup" text="Sign Up" />
+          {/* <HeaderOption to="./newPost" text="New Post" /> */}
+          <HeaderOption to="./write_post" text="Write Post" />
+        </div>
+        <div className="flex">
+          <UserDropdown />
+        </div>
       </div>
     </div>
-  )
+  );
 };
 
 const StartPage = () => {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const location = useLocation();
   const { hash, pathname, search } = location;
   return (
@@ -57,20 +50,23 @@ const StartPage = () => {
       <DemoHeader />
 
       <Routes>
-        <Route path={`/about`} element={<DemoAbout/>}/>
-        <Route path={`/home`} element={<DemoHome/>}/>
-        <Route path="/products" element={<Products />} />
+        <Route path={`/about`} element={<DemoAbout />} />
+        <Route path={`/`} element={<HomePage />} />
+
         <Route path="/posts/*" element={<Posts />} />
-        <Route path="/#pricing" element={<Pricing />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/write_post" element={<NewPostSignIn isLoggedIn={{isLoggedIn}} setIsLoggedIn={{setIsLoggedIn}} />} />
+        <Route path="/write_post" element={<NewPostSignIn />} />
+        <Route path="/primer" element={<PrimeList />} />
       </Routes>
-      <div> 
-        Pathname: <b>{pathname}</b><br />
-        Search params: <b>{search}</b><br />
+
+      <div>
+        Pathname: <b>{pathname}</b>
+        <br />
+        Search params: <b>{search}</b>
+        <br />
         Hash: <b>{hash}</b>
       </div>
-    </div> 
+    </div>
   );
 };
 

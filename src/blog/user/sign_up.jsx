@@ -8,7 +8,7 @@ const SignUp = () => {
     password: '',
     confirmPassword: '',
     username: '',
-    phoneNumber: '',
+    phone: '',
     captcha: '',
   });
   const [errors, setErrors] = useState({});
@@ -38,7 +38,10 @@ const SignUp = () => {
       // Submit form logic here
       console.log('Form submitted:', formData);
 
-      createNewUser(formData);
+      const res = createNewUser(formData);
+      if (res) {
+        console.log('User created successfully:', res);
+      }
     }
   };
 
