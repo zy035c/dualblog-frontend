@@ -17,7 +17,9 @@ const HomePage = () => {
   return (
     <div>
       <div className="m-12 mx-12">
-        <p1 className="text-white text-4xl font-serif">伟大领袖，伟大导师，伟大舵手最新指示：<br></br>把世界管起来！</p1>
+        <p1 className="text-white text-4xl font-serif">
+          伟大领袖，伟大导师，伟大舵手最新指示：<br></br>把世界管起来！
+        </p1>
       </div>
 
       <div className="text-md text-white bg-gradient-to-br from-pigliver-400 via-pigliver-700 to-pigliver-800 w-96 rounded-2xl border-pigliver-600 border-[1px] overflow-hidden card-shadow mx-12 my-6">

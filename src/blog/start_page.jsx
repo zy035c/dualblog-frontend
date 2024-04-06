@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
-import DemoAbout from "./about/about";
+import { About } from "./about/about";
 import { HomePage } from "./home/home";
 import PrimeList from "./home/prime_list";
 
@@ -26,7 +26,7 @@ const DemoHeader = () => {
     <div>
       <div className="bg-pigliver-400 rounded-md shadow-md p-2 flex justify-between items-center">
         <div className="flex space-x-2 flex-row">
-          <HeaderOption to="./about" text="WhatAbout" />
+          <HeaderOption to="./about" text="About Us" />
           <HeaderOption to="./primer" text="Primer!" />
           <HeaderOption to="/" text="Home" />
           <HeaderOption to="./posts" text="Blog Posts" />
@@ -50,7 +50,7 @@ const StartPage = () => {
       <DemoHeader />
 
       <Routes>
-        <Route path={`/about`} element={<DemoAbout />} />
+        <Route path="/about" element={<About />} />
         <Route path={`/`} element={<HomePage />} />
 
         <Route path="/posts/*" element={<Posts />} />
@@ -59,7 +59,8 @@ const StartPage = () => {
         <Route path="/primer" element={<PrimeList />} />
       </Routes>
 
-      <div>
+      <div className="text-white font-serif">
+        <p className="text-white">Debug Info</p>
         Pathname: <b>{pathname}</b>
         <br />
         Search params: <b>{search}</b>

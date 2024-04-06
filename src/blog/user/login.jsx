@@ -142,4 +142,9 @@ const LoginRequired = ({ children, statesToBeSet }) => {
   );
 };
 
+LoginRequired.defaultProps = {
+  statesToBeSet: [],
+  children: null,
+};
+
 export { LoginRequired, checkLoginStatus };

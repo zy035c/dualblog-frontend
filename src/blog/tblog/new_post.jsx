@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { postNewBlog } from "apis/api_blog";
 
 const NewPost = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,7 +11,7 @@ const NewPost = () => {
       let resp = await postNewBlog(title, content);
       console.log(resp);
     } catch (error) {
-      console.error('Error submitting post:', error);
+      console.error("Error submitting post:", error);
     }
   };
 
@@ -20,7 +20,9 @@ const NewPost = () => {
       <h1 className="text-3xl font-bold text-center mb-8">New Blog Post</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="title" className="block text-lg font-semibold mb-2">Title:</label>
+          <label htmlFor="title" className="block text-lg font-semibold mb-2">
+            Title:
+          </label>
           <input
             type="text"
             id="title"
@@ -31,7 +33,9 @@ const NewPost = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="content" className="block text-lg font-semibold mb-2">Content:</label>
+          <label htmlFor="content" className="block text-lg font-semibold mb-2">
+            Content:
+          </label>
           <textarea
             id="content"
             className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
@@ -41,7 +45,12 @@ const NewPost = () => {
             required
           ></textarea>
         </div>
-        <button type="submit" className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600">Submit</button>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
