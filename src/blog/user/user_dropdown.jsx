@@ -19,13 +19,25 @@ const variants = {
   },
 };
 
+const logoutHandler = async () => {
+  try {
+    await userLogout();
+    window.location.reload();
+    console.log("[user_dropdown]logging out success");
+  } catch (error) {
+    console.error("[user_dropdown]Error logging out:", error);
+  }
+};
+
 const ItemList = () => (
   <motion.ul variants={variants} className="">
     <MenuItem i={0}>关于</MenuItem>
     <MenuItem i={1}>归档</MenuItem>
     <MenuItem i={2}>主页</MenuItem>
     <MenuItem i={3}>私信</MenuItem>
-    <MenuItem i={4}>登出</MenuItem>
+    <MenuItem handler={logoutHandler} i={4}>
+      登出
+    </MenuItem>
   </motion.ul>
 );
 
@@ -55,125 +67,27 @@ export const UserDropdown = () => {
   const { height } = useDimensions(containerRef);
 
   return (
-    <div className="absolute h-full right-0 top-0 flex">
-      <motion.nav
-        initial={false}
-        animate={isOpen ? "open" : "closed"}
-        custom={height}
-        ref={containerRef}
-      >
-        <motion.div
-          className="background bg-pigliver-300 shadow-2xlg border-2 border-pigliver-400 rounded-xl"
-          variants={sidebar}
-        />
-        <div className="z-30">
-          <ItemList />
-        </div>
-        <UserDropdownToggle toggle={() => toggleOpen()} />
-      </motion.nav>
+    <div>
+      <div className="absolute h-full right-0 top-0 flex">
+        <motion.nav
+          initial={false}
+          animate={isOpen ? "open" : "closed"}
+          custom={height}
+          ref={containerRef}
+        >
+          <motion.div
+            className="background bg-pigliver-300 shadow-2xlg border-2 border-pigliver-400 rounded-xl"
+            variants={sidebar}
+          />
+          <div className="z-30">
+            <ItemList />
+          </div>
+          <UserDropdownToggle toggle={() => toggleOpen()} />
+        </motion.nav>
+      </div>
+      {isOpen && <LoginRequired />}
     </div>
   );
 };
-
-const UserDropdownA = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    (async () => {
-      const res = await checkLoginStatus();
-      //   data = data.split/\n/g, '<br>');
-      if (res) {
-        setIsAuthenticated(true);
-      }
-    })();
-  }, []);
-  const closeDropdown = () => {
-    setIsDropdownOpen(false);
-  };
-
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  return (
-    <div className="hover:cursor-pointer p-2 justify-center items-center">
-      <div
-        className={`avatar ${isAuthenticated ? "authenticated" : ""}`}
-        onClick={toggleDropdown}
-      >
-        {isAuthenticated ? (
-          <span className="flex h-full">🟢</span>
-        ) : (
-          <span>🟡</span>
-        )}
-      </div>
-      {/* <motion.div
-        ref={dropdownRef}
-        className="dropdown"
-        animate={isDropdownOpen ? "open" : "closed"}
-        variants={{
-          open: { y: 0, height: "auto" },
-          closed: { y: "auto", height: 0 },
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-      > */}
-      {isDropdownOpen && (
-        <UserAvatarDropdown
-          ref={dropdownRef}
-          closeDropdown={closeDropdown}
-          setIsAuthenticated={setIsAuthenticated}
-        />
-      )}
-      {/* </motion.div> */}
-    </div>
-  );
-};
-
-const UserAvatarDropdown = React.forwardRef(
-  ({ closeDropdown, setIsAuthenticated }, ref) => {
-    const navigate = useNavigate(); // 获取 history 对象
-
-    const handleLogout = async () => {
-      const result = await userLogout();
-
-      if (result.status === "success") {
-        localStorage.removeItem("dualblog-user-token");
-        setIsAuthenticated(false);
-        navigate("/");
-      }
-      closeDropdown();
-    };
-    return (
-      <div>
-        <div className="absolute dropdown px-2 right-0 border-solid border-pigliver-400">
-          <ul className="p-1 bg-pigliver-500 rounded-md text-center">
-            <li className="hover:bg-pigliver-600">我的主页</li>
-            <li className="hover:bg-pigliver-600">归档</li>
-            <li className="hover:bg-pigliver-600" onClick={handleLogout}>
-              登出
-            </li>
-          </ul>
-        </div>
-        <LoginRequired statesToBeSet={[setIsAuthenticated]} />
-      </div>
-    );
-  }
-);
 
 export default UserDropdown;

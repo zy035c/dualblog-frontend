@@ -16,36 +16,28 @@ const checkLoginStatus = async () => {
   return result.status === "success";
 };
 
-const LoginRequired = ({ statesToBeSet }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const [loginPanelOpen, setLoginPanelOpen] = useState(true);
-
-  const LoginPanelRef = useRef(null);
+const LoginPanel = ({ setLoginPanelOpen }) => {
+  const panelVariants = {
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: { stiffness: 1000, velocity: -100 },
+      },
+    },
+    closed: {
+      y: 50,
+      opacity: 0,
+      transition: {
+        y: { stiffness: 1000 },
+      },
+    },
+  };
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    (async () => {
-      if (!isAuthenticated) {
-        const isLogin = await checkLoginStatus();
-        if (isLogin) {
-          setIsAuthenticated(true);
-          setLoginPanelOpen(false);
-        } else {
-          setIsAuthenticated(false);
-          setLoginPanelOpen(true);
-        }
-      }
-    })();
-  }, [isAuthenticated]);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -57,26 +49,33 @@ const LoginRequired = ({ statesToBeSet }) => {
     console.log("token: ", result.token);
     if (result.status === "success") {
       localStorage.setItem("dualblog-user-token", result.token);
-      setIsAuthenticated(true);
+      // setIsAuthenticated(true);
       setLoginPanelOpen(false);
-
-      statesToBeSet.forEach((setter) => {
-        setter(true);
-      });
     } else {
       console.error("[handleLoginSubmit] Login failed");
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const navigate = useNavigate(); // 获取 history 对象
 
-  const LoginPanel = () => {
-    return (
-      <div className="fixed left-1/2 bg-white px-8 pb-8 rounded-lg shadow-lg flex flex-col w-64 z-50">
-        {/* 关闭按钮 */}
-        <div className="flex flex-row justify-end">
+  return (
+    <motion.div
+      className="fixed left-1/2 bg-pigliver-300 pl-8 pb-8 pr-8 rounded-lg flex flex-col w-64 z-50 opacity-0 border-3 border-gumi-red shadow-xl"
+      variants={panelVariants}
+    >
+      {/* 关闭按钮 */}
+      <div className="flex flex-row justify-end right-0 top-0 w-full pt-3 translate-x-5">
+        <motion.div
+          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.09 }}
+          className="bg-gumi-red rounded-full h-5"
+        >
           <button
-            className="relative text-xl text-gray-600 hover:text-gray-800 pt-4"
+            className="flex text-gumi-white hover:text-gumi-yellow w-8 h-8 items-center justify-center right-0 text-center text-3xl translate-y-[-7.5px] translate-x-[0.5px]"
             onClick={() => {
               setLoginPanelOpen(false);
               navigate("/");
@@ -84,69 +83,84 @@ const LoginRequired = ({ statesToBeSet }) => {
           >
             &times;
           </button>
-        </div>
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-
-        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="Email"
-            className="p-2 border rounded-md"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-          >
-            Login
-          </button>
-        </form>
+        </motion.div>
       </div>
-    );
-  };
+      <h2 className="text-xl font-bold mb-4 text-left text-pretty text-pigliver-700">
+        登录
+      </h2>
+
+      <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
+        <input
+          type="email"
+          placeholder="Email"
+          className="p-2 border rounded-md h-8"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          className="mt-1 p-2 border rounded-md w-full h-8"
+          required
+        />
+        <label className="py-0 text-sm text-pigliver-600">忘记密码？</label>
+        <motion.button
+          type="submit"
+          className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center"
+          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.09 }}
+        >
+          O.K.
+        </motion.button>
+      </form>
+    </motion.div>
+  );
+};
+
+const LoginRequired = ({ statesToBeSet }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const [loginPanelOpen, setLoginPanelOpen] = useState(false);
+
+  useEffect(() => {
+    // setTimeout(() => {
+    (async () => {
+      if (!isAuthenticated) {
+        const isLogin = await checkLoginStatus();
+        console.log("[LoginRequired] isLogin: ", isLogin);
+        if (isLogin) {
+          setIsAuthenticated(true);
+          setLoginPanelOpen(false);
+        } else {
+          setIsAuthenticated(false);
+          setLoginPanelOpen(true);
+        }
+      }
+    })();
+    // }, 500);
+  }, [isAuthenticated]);
+
   return (
-    <div className="">
-      <motion.div
-        ref={LoginPanelRef}
-        initial={{ opacity: 0 }} // 初始状态
-        // animate={{ opacity: 1, y: 0 }} // 动画结束状态
-        animate={loginPanelOpen ? "open" : "closed"}
-        variants={{
-          open: { opacity: 1 },
-          closed: { opacity: 0 },
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-      >
-        {!isAuthenticated && loginPanelOpen && (
-          <LoginPanel ref={LoginPanelRef} />
-        )}
-        <div // if not login, add a darken overlay to the page, and make it unclickable
-          className={`fixed inset-0 bg-black opacity-50 z-40 ${
-            !loginPanelOpen && "hidden"
-          }`}
-        ></div>
-      </motion.div>
-      {/* <div className="z-20">{children}</div> */}
-    </div>
+    <motion.div animate={loginPanelOpen ? "open" : "closed"}>
+      <LoginPanel setLoginPanelOpen={setLoginPanelOpen} />
+      <div // if not login, add a darken overlay to the page, and make it unclickable
+        className={`fixed inset-0 bg-black opacity-50 z-40 ${
+          !loginPanelOpen && "hidden"
+        }`}
+      ></div>
+    </motion.div>
   );
 };
 
 LoginRequired.defaultProps = {
   statesToBeSet: [],
-  children: null,
+  // children: null,
 };
 
 export { LoginRequired, checkLoginStatus };

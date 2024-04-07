@@ -20,7 +20,7 @@ const variants = {
 
 const colors = ["#F95860", "#AAD898", "#FAAF5C", "#FDF791", "#FFFFFF"];
 
-export const MenuItem = ({ i, children }) => {
+export const MenuItem = ({ i, children, handler }) => {
   const style = {
     border: `2px solid ${shadeColor(colors[i], -0.05)}`,
     backgroundColor: shadeColor(colors[i], -0.005),
@@ -37,6 +37,7 @@ export const MenuItem = ({ i, children }) => {
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
+      onClick={handler}
     >
       <div className="icon-placeholder" style={style} />
       <div className={`text-placeholder text-pigliver-950 text-center font-mono justify-center items-center`} style={textStyle}> {children} </div>

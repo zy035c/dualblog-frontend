@@ -50,6 +50,8 @@ const userLogout = async (fromData) => {
   /* write an api to logout user */
 
   // const parsedData = await simplePost("/user/logout", "logout", fromData);
+  // clear local storage
+  localStorage.removeItem("dualblog-user-token");
   return { status: "success", data: null };
 };
 

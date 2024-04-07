@@ -17,6 +17,13 @@ module.exports = {
           900: "#58434a",
           950: "#332429",
         },
+        gumi: {
+          red: "#F95860",
+          green: "#AAD898",
+          orange: "#FAAF5C",
+          yellow: "#FDF791",
+          white: "#FFFFFF",
+        },
       },
     },
   },
