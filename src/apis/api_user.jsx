@@ -29,14 +29,19 @@ const userLogin = async (fromData) => {
   const parsedData = await simplePost("/user/login", "login", fromData);
   console.log("login result", parsedData);
 
-  if (parsedData.code !== 200) {
+  console.log("data", parsedData.data)
+  console.log("parsedData.data[\"token\"]", parsedData.data["token"])
+  console.log("parsedData.data.token", parsedData.data.token)
+
+
+  if (parsedData.code !== "200") {
     console.error("login failed");
     return { status: "failed" };
   } else {
     console.log("login success");
     return {
       status: "success",
-      token: parsedData.token,
+      token: parsedData.data.token,
     };
   }
 };
