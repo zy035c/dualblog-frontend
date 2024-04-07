@@ -54,6 +54,7 @@ const LoginRequired = ({ children, statesToBeSet }) => {
     // put token into local storage
 
     const result = await userLogin(formData);
+    console.log("token: ", result.token)
     if (result.status === "success") {
       localStorage.setItem(
         "dualblog-user-token",
