@@ -16,7 +16,7 @@ const checkLoginStatus = async () => {
   return result.status === "success";
 };
 
-const LoginRequired = ({ children, statesToBeSet }) => {
+const LoginRequired = ({ statesToBeSet }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [loginPanelOpen, setLoginPanelOpen] = useState(true);
@@ -139,7 +139,7 @@ const LoginRequired = ({ children, statesToBeSet }) => {
           }`}
         ></div>
       </motion.div>
-      <div className="z-20">{children}</div>
+      {/* <div className="z-20">{children}</div> */}
     </div>
   );
 };

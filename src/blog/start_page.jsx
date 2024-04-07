@@ -34,10 +34,8 @@ const DemoHeader = () => {
           {/* <HeaderOption to="./newPost" text="New Post" /> */}
           <HeaderOption to="./write_post" text="Write Post" />
         </div>
-        <div className="flex">
-          <UserDropdown />
-        </div>
       </div>
+      <UserDropdown />
     </div>
   );
 };
@@ -60,7 +58,7 @@ const StartPage = () => {
       </Routes>
 
       <div className="text-white font-serif">
-        <p className="text-white">Debug Info</p>
+        <p className="text-white">[Debug Info]</p>
         Pathname: <b>{pathname}</b>
         <br />
         Search params: <b>{search}</b>

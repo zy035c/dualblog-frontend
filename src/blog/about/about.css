@@ -1,0 +1,48 @@
+body {
+
+    --accent: #c0a6b3;
+
+    /* margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--accent);
+    padding-bottom: 100px;
+    overflow: hidden; */
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    border: 3px dotted var(--accent);
+  
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+
+input[type="number"] {
+    border: 0;
+    border-bottom: 1px dotted var(--accent);
+    color: var(--accent);
+    margin-left: 10px;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-bottom: 2px solid var(--accent);
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
