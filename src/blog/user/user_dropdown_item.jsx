@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { shadeColor } from "utils/shade_color";
 
 const variants = {
   open: {
@@ -17,10 +18,20 @@ const variants = {
   },
 };
 
-const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
+const colors = ["#F95860", "#AAD898", "#FAAF5C", "#FDF791", "#FFFFFF"];
 
-export const MenuItem = ({ i }) => {
-  const style = { border: `2px solid ${colors[i]}` };
+export const MenuItem = ({ i, children }) => {
+  const style = {
+    border: `2px solid ${shadeColor(colors[i], -0.05)}`,
+    backgroundColor: shadeColor(colors[i], -0.005),
+  };
+
+
+  const textStyle = {
+    border: `2px solid ${shadeColor(colors[i], -0.1)}`,
+    backgroundColor: colors[i],
+  }
+
   return (
     <motion.li
       variants={variants}
@@ -28,7 +39,7 @@ export const MenuItem = ({ i }) => {
       whileTap={{ scale: 0.95 }}
     >
       <div className="icon-placeholder" style={style} />
-      <div className="text-placeholder" style={style} />
+      <div className={`text-placeholder text-pigliver-950 text-center font-mono justify-center items-center`} style={textStyle}> {children} </div>
     </motion.li>
   );
 };

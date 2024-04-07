@@ -19,19 +19,19 @@ const variants = {
   },
 };
 
-const itemIds = [0, 1, 2, 3, 4];
-
 const ItemList = () => (
   <motion.ul variants={variants} className="">
-    {itemIds.map((i) => (
-      <MenuItem i={i} key={i} />
-    ))}
+    <MenuItem i={0}>关于</MenuItem>
+    <MenuItem i={1}>归档</MenuItem>
+    <MenuItem i={2}>主页</MenuItem>
+    <MenuItem i={3}>私信</MenuItem>
+    <MenuItem i={4}>登出</MenuItem>
   </motion.ul>
 );
 
 const sidebar = {
   open: (height = 1000) => ({
-    clipPath: `circle(${height * 2 + 200}px at 338px 30px)`,
+    clipPath: `circle(${height * 2 + 200}px at 268px 30px)`,
     transition: {
       type: "spring",
       stiffness: 20,
@@ -39,7 +39,7 @@ const sidebar = {
     },
   }),
   closed: {
-    clipPath: "circle(30px at 338px 30px)",
+    clipPath: "circle(30px at 268px 30px)",
     transition: {
       delay: 0.5,
       type: "spring",
@@ -55,15 +55,20 @@ export const UserDropdown = () => {
   const { height } = useDimensions(containerRef);
 
   return (
-    <div className="absolute h-full p-0 right-0 top-0">
+    <div className="absolute h-full right-0 top-0 flex">
       <motion.nav
         initial={false}
         animate={isOpen ? "open" : "closed"}
         custom={height}
         ref={containerRef}
       >
-        <motion.div className="background" variants={sidebar} />
-        <ItemList />
+        <motion.div
+          className="background bg-pigliver-300 shadow-2xlg border-2 border-pigliver-400 rounded-xl"
+          variants={sidebar}
+        />
+        <div className="z-30">
+          <ItemList />
+        </div>
         <UserDropdownToggle toggle={() => toggleOpen()} />
       </motion.nav>
     </div>
