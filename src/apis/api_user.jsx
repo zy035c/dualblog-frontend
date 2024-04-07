@@ -36,7 +36,7 @@ const userLogin = async (fromData) => {
     console.log("login success");
     return {
       status: "success",
-      token: parsedData.data.token,
+      token: parsedData.token,
     };
   }
 };
