@@ -27,18 +27,13 @@ const checkLogin = async (fromData) => {
 const userLogin = async (fromData) => {
   /* TODO: Implement this function */
   const parsedData = await simplePost("/user/login", "login", fromData);
-  console.log("login result", parsedData);
-
-  console.log("data", parsedData.data)
-  console.log("parsedData.data[\"token\"]", parsedData.data["token"])
-  console.log("parsedData.data.token", parsedData.data.token)
-
+  console.log("[userLogin] login result", parsedData);
 
   if (parsedData.code !== "200") {
     console.error("login failed");
     return { status: "failed" };
   } else {
-    console.log("login success");
+    console.log("[userLogin] login success");
     return {
       status: "success",
       token: parsedData.data.token,
