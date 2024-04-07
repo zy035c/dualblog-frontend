@@ -74,12 +74,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
         登录
       </h2>
 
-      <form
-        // onSubmit={() => {
-        //   console.log("[LoginPanel] formData: ", formData);
-        // }}
-        className="flex flex-col gap-4"
-      >
+      <form className="flex flex-col gap-4">
         <input
           type="email"
           placeholder="Email"
