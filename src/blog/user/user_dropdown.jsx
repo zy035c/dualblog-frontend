@@ -54,16 +54,16 @@ const UserDropdown = () => {
           <span>🟡</span>
         )}
       </div>
-      <motion.div
+      {/* <motion.div
         ref={dropdownRef}
         className="dropdown"
         animate={isDropdownOpen ? "open" : "closed"}
         variants={{
-          open: { opacity: 1, height: "auto" },
-          closed: { opacity: 0, height: 0 },
+          open: { y: 0, height: "auto" },
+          closed: { y: "auto", height: 0 },
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-      >
+      > */}
         {isDropdownOpen && (
           <UserAvatarDropdown
             ref={dropdownRef}
@@ -71,7 +71,7 @@ const UserDropdown = () => {
             setIsAuthenticated={setIsAuthenticated}
           />
         )}
-      </motion.div>
+      {/* </motion.div> */}
     </div>
   );
 };

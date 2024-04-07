@@ -50,16 +50,13 @@ const LoginRequired = ({ children, statesToBeSet }) => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     // 处理登录逻辑
-    console.log("Login logic goes here");
+    console.log("[handleLoginSubmit] Login logic goes here");
     // put token into local storage
 
     const result = await userLogin(formData);
-    console.log("token: ", result.token)
+    console.log("token: ", result.token);
     if (result.status === "success") {
-      localStorage.setItem(
-        "dualblog-user-token",
-        result.token
-      );
+      localStorage.setItem("dualblog-user-token", result.token);
       setIsAuthenticated(true);
       setLoginPanelOpen(false);
 
@@ -67,77 +64,81 @@ const LoginRequired = ({ children, statesToBeSet }) => {
         setter(true);
       });
     } else {
-      console.error("Login failed");
+      console.error("[handleLoginSubmit] Login failed");
     }
   };
 
   const navigate = useNavigate(); // 获取 history 对象
 
+  const LoginPanel = () => {
+    return (
+      <div className="fixed left-1/2 bg-white px-8 pb-8 rounded-lg shadow-lg flex flex-col w-64 z-50">
+        {/* 关闭按钮 */}
+        <div className="flex flex-row justify-end">
+          <button
+            className="relative text-xl text-gray-600 hover:text-gray-800 pt-4"
+            onClick={() => {
+              setLoginPanelOpen(false);
+              navigate("/");
+            }} // 点击返回上一页
+          >
+            &times;
+          </button>
+        </div>
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
+
+        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
+          <input
+            type="email"
+            placeholder="Email"
+            className="p-2 border rounded-md"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="mt-1 p-2 border rounded-md w-full"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    );
+  };
   return (
     <div className="">
-      {!isAuthenticated && loginPanelOpen && (
-        <div
-          className="fixed left-1/2 bg-white px-8 pb-8 rounded-lg shadow-lg flex flex-col w-64 z-50"
-          ref={LoginPanelRef}
-        >
-          {/* 关闭按钮 */}
-          <div className="flex flex-row justify-end">
-            <button
-              className="relative text-xl text-gray-600 hover:text-gray-800 pt-4"
-              onClick={() => {
-                setLoginPanelOpen(false);
-                navigate("/");
-              }} // 点击返回上一页
-            >
-              &times;
-            </button>
-          </div>
-          <h2 className="text-2xl font-bold mb-4">Login</h2>
-
-          <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
-            <input
-              type="email"
-              placeholder="Email"
-              className="p-2 border rounded-md"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-            >
-              Login
-            </button>
-          </form>
-        </div>
-      )}
       <motion.div
         ref={LoginPanelRef}
-        className="dropdown"
+        initial={{ opacity: 0 }} // 初始状态
+        // animate={{ opacity: 1, y: 0 }} // 动画结束状态
         animate={loginPanelOpen ? "open" : "closed"}
         variants={{
-          open: { opacity: 1, height: "auto" },
-          closed: { opacity: 0, height: 0 },
+          open: { opacity: 1 },
+          closed: { opacity: 0 },
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-      ></motion.div>
-      <div // if not login, add a darken overlay to the page, and make it unclickable
-        className={`fixed inset-0 bg-black opacity-50 z-40 ${
-          !loginPanelOpen && "hidden"
-        }`}
-      ></div>
+      >
+        {!isAuthenticated && loginPanelOpen && (
+          <LoginPanel ref={LoginPanelRef} />
+        )}
+        <div // if not login, add a darken overlay to the page, and make it unclickable
+          className={`fixed inset-0 bg-black opacity-50 z-40 ${
+            !loginPanelOpen && "hidden"
+          }`}
+        ></div>
+      </motion.div>
       <div className="z-20">{children}</div>
     </div>
   );

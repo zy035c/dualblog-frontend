@@ -1,7 +1,7 @@
-import { simpleFetch, simplePost } from "./api";
+import { simpleGet, simplePost } from "./api";
 
 const getAllBlog = async () => {
-  const parsedData = await simpleFetch("/blog/posts", "getAllBlogPosts");
+  const parsedData = await simpleGet("/blog/posts", "getAllBlogPosts");
   return parsedData;
 };
 

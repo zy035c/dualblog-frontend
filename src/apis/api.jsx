@@ -6,7 +6,7 @@ const printObjectProperties = (obj) => {
   });
 };
 
-const simpleFetch = async (endpoint, endpointName) => {
+const simpleGet = async (endpoint, endpointName) => {
   const response = await fetch(API_URL + endpoint, {
     mode: "cors",
     method: "GET",
@@ -49,4 +49,4 @@ const simplePost = async (endpoint, endpointName, data) => {
   return parsed;
 }
 
-export { simplePost, simpleFetch };
+export { simplePost, simpleGet };
