@@ -57,7 +57,7 @@ const LoginRequired = ({ children, statesToBeSet }) => {
     if (result.status === "success") {
       localStorage.setItem(
         "dualblog-user-token",
-        result.data["dualblog-user-token"]
+        result.token
       );
       setIsAuthenticated(true);
       setLoginPanelOpen(false);

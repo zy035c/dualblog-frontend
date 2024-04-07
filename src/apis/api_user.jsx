@@ -36,9 +36,7 @@ const userLogin = async (fromData) => {
     console.log("login success");
     return {
       status: "success",
-      data: {
-        "dualblog-user-token": parsedData.data.token,
-      },
+      token: parsedData.data.token,
     };
   }
 };
