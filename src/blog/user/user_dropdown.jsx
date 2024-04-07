@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useCycle } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理页面历史记录
 
 import { LoginRequired, checkLoginStatus } from "blog/user/login";
 import "./user_dropdown.css";
@@ -85,7 +84,7 @@ export const UserDropdown = () => {
           <UserDropdownToggle toggle={() => toggleOpen()} />
         </motion.nav>
       </div>
-      {isOpen && <LoginRequired />}
+      {isOpen && <LoginRequired failCallback={() => toggleOpen()} />}
     </div>
   );
 };

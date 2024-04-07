@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { checkLogin, userLogin } from "apis/api_user";
@@ -16,7 +16,7 @@ const checkLoginStatus = async () => {
   return result.status === "success";
 };
 
-const LoginPanel = ({ setLoginPanelOpen }) => {
+const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
   const panelVariants = {
     open: {
       y: 0,
@@ -78,6 +78,7 @@ const LoginPanel = ({ setLoginPanelOpen }) => {
             className="flex text-gumi-white hover:text-gumi-yellow w-8 h-8 items-center justify-center right-0 text-center text-3xl translate-y-[-7.5px] translate-x-[0.5px]"
             onClick={() => {
               setLoginPanelOpen(false);
+              failCallback();
               navigate("/");
             }} // 点击返回上一页
           >
@@ -123,7 +124,7 @@ const LoginPanel = ({ setLoginPanelOpen }) => {
   );
 };
 
-const LoginRequired = ({ statesToBeSet }) => {
+const LoginRequired = ({ successCallback, failCallback, children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [loginPanelOpen, setLoginPanelOpen] = useState(false);
@@ -137,6 +138,7 @@ const LoginRequired = ({ statesToBeSet }) => {
         if (isLogin) {
           setIsAuthenticated(true);
           setLoginPanelOpen(false);
+          successCallback();
         } else {
           setIsAuthenticated(false);
           setLoginPanelOpen(true);
@@ -144,11 +146,14 @@ const LoginRequired = ({ statesToBeSet }) => {
       }
     })();
     // }, 500);
-  }, [isAuthenticated]);
+  }, [isAuthenticated, successCallback]);
 
   return (
     <motion.div animate={loginPanelOpen ? "open" : "closed"}>
-      <LoginPanel setLoginPanelOpen={setLoginPanelOpen} />
+      <LoginPanel
+        setLoginPanelOpen={setLoginPanelOpen}
+        failCallback={failCallback}
+      />
       <div // if not login, add a darken overlay to the page, and make it unclickable
         className={`fixed inset-0 bg-black opacity-50 z-40 ${
           !loginPanelOpen && "hidden"
@@ -159,8 +164,9 @@ const LoginRequired = ({ statesToBeSet }) => {
 };
 
 LoginRequired.defaultProps = {
-  statesToBeSet: [],
-  // children: null,
+  successCallback: () => {},
+  failCallback: () => {},
+  children: null,
 };
 
 export { LoginRequired, checkLoginStatus };

@@ -1,7 +1,21 @@
 import { useState } from "react";
 import { postNewBlog } from "apis/api_blog";
+import { LoginRequired } from "blog/user/login";
 
-const NewPost = () => {
+const NewPostSignIn = () => {
+  //   const isLoggedIn = !!localStorage.getItem("dualblog-token");
+
+  return (
+    <div>
+      <LoginRequired />
+      <div className="class m-auto flex-row justify-center items-center">
+        <BlogWriter />
+      </div>
+    </div>
+  );
+};
+
+const BlogWriter = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -14,10 +28,8 @@ const NewPost = () => {
       console.error("Error submitting post:", error);
     }
   };
-
   return (
     <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold text-center mb-8">New Blog Post</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="block text-lg font-semibold mb-2">
@@ -56,4 +68,4 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+export default NewPostSignIn;

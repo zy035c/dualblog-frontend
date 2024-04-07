@@ -7,7 +7,7 @@ import PrimeList from "./home/prime_list";
 
 import Posts from "./tblog/tblog";
 import SignUp from "./user/sign_up";
-import NewPostSignIn from "./tblog/new_post_sign_in";
+import NewPostSignIn from "./tblog/new_post";
 import UserDropdown from "./user/user_dropdown";
 
 const HeaderOption = ({ to, text }) => {
@@ -31,7 +31,6 @@ const DemoHeader = () => {
           <HeaderOption to="/" text="Home" />
           <HeaderOption to="./posts" text="Blog Posts" />
           <HeaderOption to="./signup" text="Sign Up" />
-          {/* <HeaderOption to="./newPost" text="New Post" /> */}
           <HeaderOption to="./write_post" text="Write Post" />
         </div>
       </div>
