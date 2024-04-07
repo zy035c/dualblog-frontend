@@ -15,35 +15,45 @@ const checkLogin = async (fromData) => {
   /* write an api to check if user is logged in */
   /* TODO: Implement this function */
 
-  // const parsedData = await simplePost(
-  //   "/user/check_login",
-  //   "checkLogin",
-  //   fromData
-  // );
-  const parsedData = null;
+  const parsedData = await simplePost(
+    "/user/verify",
+    "checkLogin",
+    fromData
+  );
+
+  if (parsedData.code !== "200") {
+    console.error("[checkLogin] verify failed");
+    return { status: "failed" };
+  }
   return { status: "success", data: parsedData };
 };
 
 const userLogin = async (fromData) => {
-  /* TODO: Implement this function */
-  // const parsedData = await simplePost("/user/login", "login", fromData);
-  // console.log("[userLogin] login result", parsedData);
 
-  // if (parsedData.code !== "200") {
-  //   console.error("login failed");
-  //   return { status: "failed" };
-  // } else {
-  //   console.log("[userLogin] login success");
-  //   return {
-  //     status: "success",
-  //     token: parsedData.data.token,
-  //   };
-  // }
-  console.log("[userLogin] login success");
-  return {
-    status: "success",
-    token: "example-token",
-  };
+  if (fromData.email === "test.f@fail") {
+    console.error("[userLogin] login failed");
+    return { status: "failed" };
+  }
+
+  const parsedData = await simplePost("/user/login", "login", fromData);
+  console.log("[userLogin] login result", parsedData);
+
+  if (parsedData.code !== "200") {
+    console.error("login failed");
+    return { status: "failed" };
+  } else {
+    console.log("[userLogin] login success");
+    return {
+      status: "success",
+      token: parsedData.data.token,
+    };
+  }
+
+  // console.log("[userLogin] login success");
+  // return {
+  //   status: "success",
+  //   token: "example-token",
+  // };
 };
 
 const userLogout = async (fromData) => {

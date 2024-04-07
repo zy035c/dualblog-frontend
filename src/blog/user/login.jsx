@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 import { checkLogin, userLogin } from "apis/api_user";
 import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理页面历史记录
+import { Popup } from "utils/popup";
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage
@@ -16,7 +17,7 @@ const checkLoginStatus = async () => {
   return result.status === "success";
 };
 
-const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
+const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
   const panelVariants = {
     open: {
       y: 0,
@@ -39,23 +40,6 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
     password: "",
   });
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    // 处理登录逻辑
-    console.log("[handleLoginSubmit] Login logic goes here");
-    // put token into local storage
-
-    const result = await userLogin(formData);
-    console.log("token: ", result.token);
-    if (result.status === "success") {
-      localStorage.setItem("dualblog-user-token", result.token);
-      // setIsAuthenticated(true);
-      setLoginPanelOpen(false);
-    } else {
-      console.error("[handleLoginSubmit] Login failed");
-    }
-  };
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -64,7 +48,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
 
   return (
     <motion.div
-      className="fixed left-1/2 bg-pigliver-300 pl-8 pb-8 pr-8 rounded-lg flex flex-col w-64 z-50 opacity-0 border-3 border-gumi-red shadow-xl"
+      className="bg-pigliver-300 pl-8 pb-8 pr-8 rounded-lg flex flex-col w-64 opacity-0 border-3 border-gumi-red shadow-xl translate-y-[-100px] z-50"
       variants={panelVariants}
     >
       {/* 关闭按钮 */}
@@ -75,7 +59,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
           className="bg-gumi-red rounded-full h-5"
         >
           <button
-            className="flex text-gumi-white hover:text-gumi-yellow w-8 h-8 items-center justify-center right-0 text-center text-3xl translate-y-[-7.5px] translate-x-[0.5px]"
+            className="flex text-gumi-white hover:text-gumi-yellow w-8 h-8 items-center justify-center right-0 text-center text-3xl translate-y-[-7.8px] translate-x-[0.3px]"
             onClick={() => {
               setLoginPanelOpen(false);
               failCallback();
@@ -90,7 +74,12 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
         登录
       </h2>
 
-      <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
+      <form
+        // onSubmit={() => {
+        //   console.log("[LoginPanel] formData: ", formData);
+        // }}
+        className="flex flex-col gap-4"
+      >
         <input
           type="email"
           placeholder="Email"
@@ -110,15 +99,19 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback }) => {
           className="mt-1 p-2 border rounded-md w-full h-8"
           required
         />
-        <label className="py-0 text-sm text-pigliver-600">忘记密码？</label>
-        <motion.button
-          type="submit"
-          className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center"
+        <label className="py-0 my-0 text-sm text-pigliver-600">
+          忘记密码？
+        </label>
+        <motion.div
+          onClick={() => {
+            handleLoginSubmit(formData)();
+          }}
+          className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center cursor-pointer"
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.09 }}
         >
           O.K.
-        </motion.button>
+        </motion.div>
       </form>
     </motion.div>
   );
@@ -128,9 +121,9 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [loginPanelOpen, setLoginPanelOpen] = useState(false);
+  const [isPopOpen, setIsPopOpen] = useState(false);
 
   useEffect(() => {
-    // setTimeout(() => {
     (async () => {
       if (!isAuthenticated) {
         const isLogin = await checkLoginStatus();
@@ -145,21 +138,54 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
         }
       }
     })();
-    // }, 500);
   }, [isAuthenticated, successCallback]);
 
+  const handleLoginSubmit = (formData) => async (e) => {
+    // e.preventDefault();
+    // 处理登录逻辑
+    console.log("[handleLoginSubmit] formData", formData);
+    console.log("[handleLoginSubmit] Login logic goes here");
+    // put token into local storage
+
+    const result = await userLogin(formData);
+    console.log("token: ", result.token);
+    if (result.status === "success") {
+      localStorage.setItem("dualblog-user-token", result.token);
+      setIsAuthenticated(true);
+      setLoginPanelOpen(false);
+    } else {
+      console.error("[handleLoginSubmit] Login failed");
+      setIsPopOpen(true);
+    }
+  };
+
   return (
-    <motion.div animate={loginPanelOpen ? "open" : "closed"}>
-      <LoginPanel
-        setLoginPanelOpen={setLoginPanelOpen}
-        failCallback={failCallback}
-      />
-      <div // if not login, add a darken overlay to the page, and make it unclickable
-        className={`fixed inset-0 bg-black opacity-50 z-40 ${
-          !loginPanelOpen && "hidden"
-        }`}
-      ></div>
-    </motion.div>
+    <div className="absolute">
+      <motion.div
+        animate={loginPanelOpen ? "open" : "closed"}
+        className="absolute flex justify-center items-center w-screen h-screen"
+      >
+        <LoginPanel
+          setLoginPanelOpen={setLoginPanelOpen}
+          failCallback={failCallback}
+          handleLoginSubmit={handleLoginSubmit}
+        />
+        {loginPanelOpen && (
+          <div // if not login, add a darken overlay to the page, and make it unclickable
+            className={`fixed inset-0 bg-black opacity-50 z-40`}
+          ></div>
+        )}
+      </motion.div>
+      {isPopOpen && (
+        <Popup
+          isOpen={isPopOpen}
+          onClose={() => {
+            setIsPopOpen(false);
+          }}
+          msg={"登录失败，请检查用户名和密码"}
+        />
+      )}
+    </div>
   );
 };
 
