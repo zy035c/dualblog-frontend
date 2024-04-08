@@ -155,32 +155,33 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
   };
 
   return (
-    <div className="absolute">
-      <motion.div
-        animate={loginPanelOpen ? "open" : "closed"}
-        className="absolute flex justify-center items-center w-screen h-screen"
-      >
-        <LoginPanel
-          setLoginPanelOpen={setLoginPanelOpen}
-          failCallback={failCallback}
-          handleLoginSubmit={handleLoginSubmit}
-        />
-        {loginPanelOpen && (
+    loginPanelOpen && (
+      <div className="absolute items-center justify-center">
+        <motion.div
+          animate={loginPanelOpen ? "open" : "closed"}
+          className="absolute flex justify-center items-center w-screen h-screen"
+        >
+          <LoginPanel
+            setLoginPanelOpen={setLoginPanelOpen}
+            failCallback={failCallback}
+            handleLoginSubmit={handleLoginSubmit}
+          />
+
           <div // if not login, add a darken overlay to the page, and make it unclickable
             className={`fixed inset-0 bg-black opacity-50 z-40`}
           ></div>
+        </motion.div>
+        {isPopOpen && (
+          <Popup
+            isOpen={isPopOpen}
+            onClose={() => {
+              setIsPopOpen(false);
+            }}
+            msg={"登录失败，请检查用户名和密码"}
+          />
         )}
-      </motion.div>
-      {isPopOpen && (
-        <Popup
-          isOpen={isPopOpen}
-          onClose={() => {
-            setIsPopOpen(false);
-          }}
-          msg={"登录失败，请检查用户名和密码"}
-        />
-      )}
-    </div>
+      </div>
+    )
   );
 };
 
