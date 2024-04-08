@@ -21,6 +21,7 @@ const simpleGet = async (endpoint, endpointName, headers) => {
     //   console.error(`${endpointName}: Network response was not ok`);
     //   return null;
     // }
+    console.log("response: ", response);
     const parsed = await response.json()
     console.log("Fetched Data at " + endpoint + ", " + endpointName);
     printObjectProperties(parsed); 
