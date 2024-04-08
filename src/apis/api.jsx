@@ -6,13 +6,14 @@ const printObjectProperties = (obj) => {
   });
 };
 
-const simpleGet = async (endpoint, endpointName) => {
+const simpleGet = async (endpoint, endpointName, headers) => {
   const response = await fetch(API_URL + endpoint, {
     mode: "cors",
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      ...headers,
     },
   });
 
@@ -27,13 +28,14 @@ const simpleGet = async (endpoint, endpointName) => {
     return parsed;
 };
 
-const simplePost = async (endpoint, endpointName, data) => {
+const simplePost = async (endpoint, endpointName, data, headers) => {
   const response = await fetch(API_URL + endpoint, {
     mode: "cors",
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      ...headers,
     },
     body: JSON.stringify(data),
   });

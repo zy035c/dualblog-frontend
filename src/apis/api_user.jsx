@@ -6,20 +6,16 @@ const getAllUser = async () => {
 };
 
 /* write an api to post a blog with title and content */
-const createNewUser = async (fromData) => {
-  const parsedData = await simplePost("/user/create", "addUser", fromData);
+const createNewUser = async (formData) => {
+  const parsedData = await simplePost("/user/create", "addUser", formData);
   return parsedData;
 };
 
-const checkLogin = async (fromData) => {
+const checkLogin = async (formData) => {
   /* write an api to check if user is logged in */
   /* TODO: Implement this function */
 
-  const parsedData = await simpleGet(
-    "/user/verify",
-    "checkLogin",
-    fromData
-  );
+  const parsedData = await simpleGet("/user/verify", "checkLogin", formData);
 
   if (parsedData.code !== "200") {
     console.error("[checkLogin] verify failed");
@@ -29,14 +25,13 @@ const checkLogin = async (fromData) => {
   return { status: "success", data: parsedData };
 };
 
-const userLogin = async (fromData) => {
-
-  if (fromData.email === "test.f@fail") {
+const userLogin = async (formData) => {
+  if (formData.email === "test.f@fail") {
     console.error("[userLogin] login failed");
     return { status: "failed" };
   }
 
-  const parsedData = await simplePost("/user/login", "login", fromData);
+  const parsedData = await simplePost("/user/login", "login", formData);
   console.log("[userLogin] login result", parsedData);
 
   if (parsedData.code !== "200") {
@@ -57,10 +52,10 @@ const userLogin = async (fromData) => {
   // };
 };
 
-const userLogout = async (fromData) => {
+const userLogout = async (formData) => {
   /* write an api to logout user */
 
-  // const parsedData = await simplePost("/user/logout", "logout", fromData);
+  // const parsedData = await simplePost("/user/logout", "logout", formData);
   // clear local storage
   localStorage.removeItem("dualblog-user-token");
   return { status: "success", data: null };
