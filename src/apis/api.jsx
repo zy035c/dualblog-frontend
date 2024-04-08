@@ -16,10 +16,10 @@ const simpleGet = async (endpoint, endpointName) => {
     },
   });
 
-    if (!response.ok) {
-      console.error(`${endpointName}: Network response was not ok`);
-      return null;
-    }
+    // if (!response.ok) {
+    //   console.error(`${endpointName}: Network response was not ok`);
+    //   return null;
+    // }
     const parsed = await response.json()
     console.log("Fetched Data at " + endpoint + ", " + endpointName);
     printObjectProperties(parsed); 
@@ -38,10 +38,10 @@ const simplePost = async (endpoint, endpointName, data) => {
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) {
-    console.error(`${endpointName}: Network response was not ok`);
-    return null;
-  }
+  // if (!response.ok) {
+  //   console.error(`${endpointName}: Network response was not ok`);
+  //   return null;
+  // }
   const parsed = await response.json();
   console.log("Posted Data at " + endpoint + ", " + endpointName);
   printObjectProperties(parsed);
