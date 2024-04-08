@@ -22,7 +22,8 @@ const simpleGet = async (endpoint, endpointName, headers) => {
   //   return null;
   // }
   console.log("response: ", response);
-  const parsed = JSON.parse(response.text());
+  const tmp = await response.text();
+  const parsed = JSON.parse(tmp);
   // const parsed = await response.json();
   console.log("Fetched Data at " + endpoint + ", " + endpointName);
   printObjectProperties(parsed);
