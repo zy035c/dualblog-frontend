@@ -13,7 +13,7 @@ const checkLoginStatus = async () => {
     return false;
   }
 
-  const result = await checkLogin({ token: token });
+  const result = await checkLogin({ "Token": token });
   return result.status === "success";
 };
 
