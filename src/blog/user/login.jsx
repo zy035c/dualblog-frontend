@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-import { checkLogin, userLogin } from "apis/api_user";
+import { checkLogin, userLogin } from "src/apis/api_user";
 import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理页面历史记录
-import { Popup } from "utils/popup";
+import { Popup } from "src/utils/popup";
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { shadeColor } from "utils/shade_color";
+import { shadeColor } from "src/utils/shade_color";
 
 const variants = {
   open: {

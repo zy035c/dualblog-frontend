@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useCycle } from "framer-motion";
 
-import { LoginRequired, checkLoginStatus } from "blog/user/login";
+import { LoginRequired, checkLoginStatus } from "src/blog/user/login";
 import "./user_dropdown.css";
-import { userLogout } from "apis/api_user";
+import { userLogout } from "src/apis/api_user";
 
 import { MenuItem } from "./user_dropdown_item";
 import { UserDropdownToggle } from "./user_dropdown_toggle";
-import { useDimensions } from "utils/use_dimensions";
+import { useDimensions } from "src/utils/use_dimensions";
+import { Link } from "react-router-dom";
 
 const variants = {
   open: {
@@ -30,11 +31,14 @@ const logoutHandler = async () => {
 
 const ItemList = () => (
   <motion.ul variants={variants} className="">
-    <MenuItem i={0}>关于</MenuItem>
+    <MenuItem i={0}>
+      关于
+      <Link to="/settings" />
+    </MenuItem>
     <MenuItem i={1}>归档</MenuItem>
     <MenuItem i={2}>主页</MenuItem>
     <MenuItem i={3}>私信</MenuItem>
-    <MenuItem handler={logoutHandler} i={4}>
+    <MenuItem i={4} handler={logoutHandler}>
       登出
     </MenuItem>
   </motion.ul>

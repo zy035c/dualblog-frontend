@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllBlog } from "apis/api_blog";
+import { getAllBlog } from "src/apis/api_blog";
 import { Link } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import NewPost from "./new_post";

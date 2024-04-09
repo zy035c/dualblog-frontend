@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { Input } from "utils/range_input";
+import { Input } from "src/utils/range_input.jsx";
 
 import "./about.css";
 

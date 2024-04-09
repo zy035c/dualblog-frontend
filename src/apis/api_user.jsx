@@ -15,8 +15,9 @@ const checkLogin = async (formData) => {
   /* write an api to check if user is logged in */
   /* TODO: Implement this function */
 
-  const parsedData = await simpleGet("/user/verify", "checkLogin", formData);
+  // const parsedData = await simpleGet("/user/verify", "checkLogin", formData);
 
+  const parsedData = { code: "200" };
   if (parsedData.code !== "200") {
     console.error("[checkLogin] verify failed");
     return { status: "failed" };
@@ -31,7 +32,8 @@ const userLogin = async (formData) => {
     return { status: "failed" };
   }
 
-  const parsedData = await simplePost("/user/login", "login", formData);
+  // const parsedData = await simplePost("/user/login", "login", formData);
+  const parsedData = { code: "200", data: { token: "example-token" } };
   console.log("[userLogin] login result", parsedData);
 
   if (parsedData.code !== "200") {

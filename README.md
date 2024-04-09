@@ -27,6 +27,9 @@ nvm use 18
 npm install react-router-dom
 npm install tailwindcss
 npm install framer-motion
+
+npm install @radix-ui/react-popover@latest -E
+npx shadcn-ui@latest init
 ```
 
 启动React应用

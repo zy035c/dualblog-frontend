@@ -1,8 +1,9 @@
 import './App.css';
+import './app/globals.css';
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import StartPage from 'blog/start_page'
+import StartPage from './blog/start_page'
 
 const App = () => {
   return (

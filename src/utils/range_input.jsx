@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Input({ value, children, set, min = -200, max = 200 }) {
   return (
     <label>

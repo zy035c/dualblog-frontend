@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { createNewUser } from 'apis/api_user';
+import { createNewUser } from 'src/apis/api_user';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({

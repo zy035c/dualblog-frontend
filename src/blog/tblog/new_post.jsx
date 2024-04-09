@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { postNewBlog } from "apis/api_blog";
-import { LoginRequired } from "blog/user/login";
+import { postNewBlog } from "src/apis/api_blog";
+import { LoginRequired } from "src/blog/user/login";
 
 const NewPostSignIn = () => {
   //   const isLoggedIn = !!localStorage.getItem("dualblog-token");
