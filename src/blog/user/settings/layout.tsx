@@ -1,4 +1,6 @@
-import { Separator } from "@/components/ui/separator";
+
+
+import { Separator } from "src/components/ui/separator";
 import { SidebarNav } from "./components/sidebar-nav";
 import * as React from 'react';
 

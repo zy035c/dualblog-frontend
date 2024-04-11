@@ -5,8 +5,8 @@ import { ChevronDownIcon } from "@radix-ui/react-icons"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { cn } from "src/lib/utils"
+import { Button, buttonVariants } from "src/components/ui/button"
 import {
   Form,
   FormControl,
@@ -15,9 +15,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { toast } from "@/components/ui/use-toast"
+} from "src/components/ui/form"
+import { RadioGroup, RadioGroupItem } from "src/components/ui/radio-group"
+import { toast } from "src/components/ui/use-toast"
 import * as React from 'react';
 
 const appearanceFormSchema = z.object({

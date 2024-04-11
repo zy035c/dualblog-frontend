@@ -3,7 +3,7 @@
 // import { usePathname } from "next/navigation"
 
 import { cn } from "src/utils/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "src/components/ui/button"
 import { Link } from "react-router-dom"
 import * as React from 'react';
 

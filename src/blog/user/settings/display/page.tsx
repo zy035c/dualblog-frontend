@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "src/components/ui/separator";
 import { DisplayForm } from "./display-form";
 import * as React from 'react';
 
