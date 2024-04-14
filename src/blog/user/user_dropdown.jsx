@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useCycle } from "framer-motion";
 
-import { LoginRequired, checkLoginStatus } from "src/blog/user/login";
+import { LoginRequired } from "src/blog/user/login";
 import "./user_dropdown.css";
 import { userLogout } from "src/apis/api_user";
 
@@ -9,6 +9,7 @@ import { MenuItem } from "./user_dropdown_item";
 import { UserDropdownToggle } from "./user_dropdown_toggle";
 import { useDimensions } from "src/utils/use_dimensions";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "src/components/ui/use-toast";
 
 const variants = {
   open: {
@@ -19,25 +20,32 @@ const variants = {
   },
 };
 
-const logoutHandler = async () => {
-  try {
-    const result = await userLogout({
-      token: localStorage.getItem("dualblog-user-token")
-    });
-    localStorage.removeItem("dualblog-user-token");
-    window.location.reload();
-    console.log("[user_dropdown]logging out success");
-  } catch (error) {
-    console.error("[user_dropdown]Error logging out:", error);
-  }
-};
-
-const ItemList = () => {
+const ItemList = ({ toggleOpen }) => {
   const nav = useNavigate();
+  const { toast } = useToast();
 
   const settingsHandler = () => {
     console.log("settings clicked");
     nav("/settings");
+    toggleOpen();
+  };
+
+  const logoutHandler = async () => {
+    const result = await userLogout({
+      token: localStorage.getItem("dualblog-user-token"),
+    });
+    if (result.status === "success") {
+      localStorage.removeItem("dualblog-user-token");
+
+      toast({
+        title: "您已登出",
+        description: "长路漫漫，惟剑作伴。",
+        duration: 2000,
+      });
+      console.log("[user_dropdown]logging out success");
+      nav("/");
+      toggleOpen();
+    }
   };
 
   return (
@@ -95,7 +103,7 @@ export const UserDropdown = () => {
             variants={sidebar}
           />
           <div className="z-30">
-            <ItemList />
+            <ItemList toggleOpen={toggleOpen} />
           </div>
           <UserDropdownToggle toggle={() => toggleOpen()} />
         </motion.nav>

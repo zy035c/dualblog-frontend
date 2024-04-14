@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
-import { Button } from "src/components/ui/button";
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage
@@ -85,7 +84,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
               setLoginPanelOpen(false);
               failCallback();
               navigate("/");
-            }} // 点击返回"/""
+            }} // 点击返回"/"
           >
             &times;
           </button>
@@ -174,12 +173,16 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
       setLoginPanelOpen(false);
       successCallback();
       toast({
-        title: "登录成功，我将以高达形态出击。",
+        title: "登录成功",
+        description: "我将以高达形态出击。",
+        duration: 2000,
       });
     } else {
       console.error("[handleLoginSubmit] Login failed");
       toast({
-        title: "登录失败，请检查用户名和密码。",
+        title: "登录失败，请检查用户名和密码",
+        description: "我宁愿犯错，也不愿什么都不做。",
+        duration: 2000,
       });
     }
   };
