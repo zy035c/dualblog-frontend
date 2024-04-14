@@ -11,7 +11,7 @@
 } */
 
 
-nav {
+.motion-nav {
     position: absolute;
     top: 0;
     right: 0;
@@ -27,7 +27,7 @@ nav {
     /* background: #fff; */
 }
 
-button {
+.user-dropdown-btn {
     outline: none;
     border: none;
     -webkit-user-select: none;
@@ -56,7 +56,7 @@ ul {
     right: 10px;
 }
 
-li {
+.motion-li {
     list-style: none;
     margin-bottom: 20px;
     display: flex;

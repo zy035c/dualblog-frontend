@@ -33,6 +33,7 @@ const MenuItem = ({ i, children, handler }) => {
 
   return (
     <motion.li
+      className="motion-li"
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}

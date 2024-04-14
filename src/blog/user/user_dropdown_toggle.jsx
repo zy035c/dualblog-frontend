@@ -12,7 +12,7 @@ const Path = (props) => (
 
 const UserDropdownToggle = ({ toggle }) => (
   <div className="absolute right-0">
-    <button onClick={toggle} className="flex items-center justify-center m-[6px]">
+    <button onClick={toggle} className="flex user-dropdown-btn items-center justify-center m-[6px]">
       <svg width="23" height="23" viewBox="0 0 23 23">
         <Path
           variants={{

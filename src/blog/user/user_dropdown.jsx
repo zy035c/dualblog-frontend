@@ -81,6 +81,7 @@ export const UserDropdown = () => {
     <div>
       <div className="absolute h-full right-0 top-0 flex">
         <motion.nav
+          className="motion-nav"
           initial={false}
           animate={isOpen ? "open" : "closed"}
           custom={height}

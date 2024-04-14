@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 import { checkLogin, userLogin } from "src/apis/api_user";
 import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理页面历史记录
-import { Popup } from "src/utils/popup";
+import { useToast } from "src/components/ui/use-toast";
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage
@@ -13,7 +13,7 @@ const checkLoginStatus = async () => {
     return false;
   }
 
-  const result = await checkLogin({ "token": token });
+  const result = await checkLogin({ token: token });
   return result.status === "success";
 };
 
@@ -44,7 +44,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const navigate = useNavigate(); // 获取 history 对象
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -64,7 +64,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
               setLoginPanelOpen(false);
               failCallback();
               navigate("/");
-            }} // 点击返回上一页
+            }} // 点击返回"/""
           >
             &times;
           </button>
@@ -98,8 +98,9 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
           忘记密码？
         </label>
         <motion.div
+          type="submit"
           onClick={() => {
-            handleLoginSubmit(formData)();
+            handleLoginSubmit(formData);
           }}
           className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center cursor-pointer"
           whileTap={{ scale: 0.97 }}
@@ -114,9 +115,8 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
 
 const LoginRequired = ({ successCallback, failCallback, children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   const [loginPanelOpen, setLoginPanelOpen] = useState(false);
-  const [isPopOpen, setIsPopOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     (async () => {
@@ -126,7 +126,6 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
         if (isLogin) {
           setIsAuthenticated(true);
           setLoginPanelOpen(false);
-          successCallback();
         } else {
           setIsAuthenticated(false);
           setLoginPanelOpen(true);
@@ -135,8 +134,7 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
     })();
   }, [isAuthenticated, successCallback]);
 
-  const handleLoginSubmit = (formData) => async (e) => {
-    // e.preventDefault();
+  const handleLoginSubmit = async (formData) => {
     // 处理登录逻辑
     console.log("[handleLoginSubmit] formData", formData);
     console.log("[handleLoginSubmit] Login logic goes here");
@@ -148,9 +146,15 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
       localStorage.setItem("dualblog-user-token", result.token);
       setIsAuthenticated(true);
       setLoginPanelOpen(false);
+      successCallback();
+      toast({
+        title: "登录成功，我将以高达形态出击。",
+      });
     } else {
       console.error("[handleLoginSubmit] Login failed");
-      setIsPopOpen(true);
+      toast({
+        title: "登录失败，请检查用户名和密码。",
+      });
     }
   };
 
@@ -171,15 +175,6 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
             className={`fixed inset-0 bg-black opacity-50 z-40`}
           ></div>
         </motion.div>
-        {isPopOpen && (
-          <Popup
-            isOpen={isPopOpen}
-            onClose={() => {
-              setIsPopOpen(false);
-            }}
-            msg={"登录失败，请检查用户名和密码"}
-          />
-        )}
       </div>
     )
   );

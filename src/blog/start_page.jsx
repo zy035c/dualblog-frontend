@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
@@ -10,6 +12,10 @@ import SignUp from "./user/sign_up";
 import NewPostSignIn from "./tblog/new_post";
 import UserDropdown from "./user/user_dropdown";
 import SettingsLayout from "src/blog/user/settings/layout";
+
+import { useToast } from "src/components/ui/use-toast";
+import { ToastAction } from "src/components/ui/toast";
+import { Button } from "src/components/ui/button";
 
 const HeaderOption = ({ to, text }) => {
   return (
@@ -43,6 +49,7 @@ const DemoHeader = () => {
 const StartPage = () => {
   const location = useLocation();
   const { hash, pathname, search } = location;
+  const { toast } = useToast();
   return (
     <div>
       <DemoHeader />
@@ -55,7 +62,7 @@ const StartPage = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/write_post" element={<NewPostSignIn />} />
         <Route path="/primer" element={<PrimeList />} />
-        <Route path="/settings" element={<SettingsLayout />} />
+        <Route path="/settings/*" element={<SettingsLayout />} />
       </Routes>
 
       <div className="text-white font-serif">
