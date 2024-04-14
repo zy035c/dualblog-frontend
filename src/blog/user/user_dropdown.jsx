@@ -21,7 +21,10 @@ const variants = {
 
 const logoutHandler = async () => {
   try {
-    await userLogout();
+    const result = await userLogout({
+      token: localStorage.getItem("dualblog-user-token")
+    });
+    localStorage.removeItem("dualblog-user-token");
     window.location.reload();
     console.log("[user_dropdown]logging out success");
   } catch (error) {

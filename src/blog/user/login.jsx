@@ -141,9 +141,9 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
     // put token into local storage
 
     const result = await userLogin(formData);
-    console.log("token: ", result.token);
+    console.log("[handleLoginSubmit] Token: ", result.data.token);
     if (result.status === "success") {
-      localStorage.setItem("dualblog-user-token", result.token);
+      localStorage.setItem("dualblog-user-token", result.data.token);
       setIsAuthenticated(true);
       setLoginPanelOpen(false);
       successCallback();
