@@ -1,6 +1,6 @@
 import { simpleGet, simplePost } from "./api";
 
-const env = process.env.REACT_APP_MODE;
+const mode = process.env.REACT_APP_MODE;
 
 const getAllUser = async () => {
   const parsedData = await simpleGet("/blog/get_all", "getAllUser");
@@ -16,15 +16,14 @@ const createNewUser = async (formData) => {
 const checkLogin = async (headers) => {
   /* write an api to check if user is logged in */
   /* TODO: Implement this function */
-  // print env
-  console.log("[checkLogin] env: ", env);
-  if (env === "dev") {
-    return { status: "success", data: { token: "example-token" }};
+  console.log("[checkLogin] mode: ", mode);
+  if (mode === "dev") {
+    console.log("[checkLogin] dev check login success");
+    return { status: "success", data: { token: "example-token" } };
   }
 
   const parsedData = await simpleGet("/user/verify", "checkLogin", headers);
 
-  // const parsedData = { code: "200" };
   if (parsedData.code !== "200") {
     console.error("[checkLogin] verify failed");
     return { status: "failed" };
@@ -34,13 +33,17 @@ const checkLogin = async (headers) => {
 };
 
 const userLogin = async (formData) => {
-  if (formData.email === "test.f@fail") {
+  if (formData.email === "test@fail.com") {
     console.error("[userLogin] login failed");
     return { status: "failed" };
   }
 
+  if (mode === "dev") {
+    console.log("[userLogin] dev login success");
+    return { status: "success", data: { token: "example-token" } };
+  }
+
   const parsedData = await simplePost("/user/login", "login", formData);
-  // const parsedData = { code: "200", data: { token: "example-token" } };
   console.log("[userLogin] login result", parsedData);
 
   if (parsedData.code !== "200") {
@@ -52,17 +55,15 @@ const userLogin = async (formData) => {
     status: "success",
     data: parsedData.data,
   };
-
-
-  // console.log("[userLogin] login success");
-  // return {
-  //   status: "success",
-  //   token: "example-token",
-  // };
 };
 
 const userLogout = async (headers) => {
   /* write an api to logout user */
+
+  if (mode === "dev") {
+    console.log("[userLogout] dev logout success");
+    return { status: "success" };
+  }
 
   const parsedData = await simpleGet("/user/logout", "logout", headers);
   if (parsedData.code !== "200") {

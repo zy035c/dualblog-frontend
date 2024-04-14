@@ -1,9 +1,27 @@
-import React, { useState, useEffect } from "react";
+"use client"
+
+import * as React from 'react';
+
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { checkLogin, userLogin } from "src/apis/api_user";
 import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理页面历史记录
 import { useToast } from "src/components/ui/use-toast";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "src/components/ui/form";
+import { Input } from "src/components/ui/input";
+import { Button } from "src/components/ui/button";
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage
@@ -16,6 +34,11 @@ const checkLoginStatus = async () => {
   const result = await checkLogin({ token: token });
   return result.status === "success";
 };
+
+const loginFormSchema = z.object({
+  email: z.string().email({ message: "请输入有效的邮箱地址" }),
+  password: z.string().min(6, { message: "密码长度至少为6位" }),
+});
 
 const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
   const panelVariants = {
@@ -35,16 +58,14 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
     },
   };
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const navigate = useNavigate();
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   return (
     <motion.div
@@ -73,42 +94,47 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
       <h2 className="text-xl font-bold mb-4 text-left text-pretty text-pigliver-700">
         登录
       </h2>
-
-      <form
-        className="flex flex-col gap-4"
-        onSubmit={handleLoginSubmit(formData)}
-      >
-        <input
-          type="email"
-          placeholder="Email"
-          className="p-2 border rounded-md h-8"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="mt-1 p-2 border rounded-md w-full h-8"
-          required
-        />
-        <label className="py-0 my-0 text-sm text-pigliver-600">
-          忘记密码？
-        </label>
-        <motion.button
-          type="submit"
-          className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center cursor-pointer"
-          whileTap={{ scale: 0.97 }}
-          whileHover={{ scale: 1.09 }}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleLoginSubmit)}
+          className="space-y-4"
         >
-          O.K.
-        </motion.button>
-      </form>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>邮箱</FormLabel>
+                <FormControl>
+                  <Input {...field} type="email" placeholder="tanaka@mail.com" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>密码</FormLabel>
+                <FormControl>
+                  <Input {...field} type="password" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <motion.button
+            type="submit"
+            className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center cursor-pointer"
+            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            O.K.
+          </motion.button>
+        </form>
+      </Form>
     </motion.div>
   );
 };
@@ -134,13 +160,13 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
     })();
   }, [isAuthenticated, successCallback]);
 
-  const handleLoginSubmit = async (formData) => {
+  const handleLoginSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     // 处理登录逻辑
-    console.log("[handleLoginSubmit] formData", formData);
+    console.log("[handleLoginSubmit] formData", values);
     console.log("[handleLoginSubmit] Login logic goes here");
     // put token into local storage
 
-    const result = await userLogin(formData);
+    const result = await userLogin(values);
     if (result.status === "success") {
       console.log("[handleLoginSubmit] Token: ", result.data.token);
       localStorage.setItem("dualblog-user-token", result.data.token);
@@ -181,8 +207,8 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
 };
 
 LoginRequired.defaultProps = {
-  successCallback: () => {},
-  failCallback: () => {},
+  successCallback: () => { },
+  failCallback: () => { },
   children: null,
 };
 
