@@ -76,9 +76,7 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
 
       <form
         className="flex flex-col gap-4"
-        onSubmit={() => {
-          handleLoginSubmit(formData);
-        }}
+        onSubmit={handleLoginSubmit(formData)}
       >
         <input
           type="email"
@@ -102,14 +100,14 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
         <label className="py-0 my-0 text-sm text-pigliver-600">
           忘记密码？
         </label>
-        <motion.div
+        <motion.button
           type="submit"
           className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center cursor-pointer"
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.09 }}
         >
           O.K.
-        </motion.div>
+        </motion.button>
       </form>
     </motion.div>
   );
