@@ -64,7 +64,7 @@ const userLogin = async (formData) => {
 const userLogout = async (headers) => {
   /* write an api to logout user */
 
-  const parsedData = await simplePost("/user/logout", "logout", null, headers);
+  const parsedData = await simpleGet("/user/logout", "logout", null, headers);
   if (parsedData.code !== "200") {
     console.error("[userLogout] logout failed");
     return { status: "failed" };
