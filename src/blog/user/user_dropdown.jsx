@@ -32,14 +32,14 @@ const logoutHandler = async () => {
 const ItemList = () => {
   const nav = useNavigate();
 
-  const settingHandler = () => {
-    console.log("setting clicked");
+  const settingsHandler = () => {
+    console.log("settings clicked");
     nav("/settings");
   };
 
   return (
     <motion.ul variants={variants} className="">
-      <MenuItem i={0} handler={settingHandler}>
+      <MenuItem i={0} handler={settingsHandler}>
         关于
       </MenuItem>
       <MenuItem i={1}>归档</MenuItem>
