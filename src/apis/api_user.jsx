@@ -13,7 +13,7 @@ const createNewUser = async (formData) => {
   return parsedData;
 };
 
-const checkLogin = async (formData) => {
+const checkLogin = async (headers) => {
   /* write an api to check if user is logged in */
   /* TODO: Implement this function */
   // print env
@@ -22,7 +22,7 @@ const checkLogin = async (formData) => {
     return { status: "success", data: { token: "example-token" }};
   }
 
-  const parsedData = await simpleGet("/user/verify", "checkLogin", formData);
+  const parsedData = await simpleGet("/user/verify", "checkLogin", headers);
 
   // const parsedData = { code: "200" };
   if (parsedData.code !== "200") {
@@ -64,7 +64,7 @@ const userLogin = async (formData) => {
 const userLogout = async (headers) => {
   /* write an api to logout user */
 
-  const parsedData = await simpleGet("/user/logout", "logout", null, headers);
+  const parsedData = await simpleGet("/user/logout", "logout", headers);
   if (parsedData.code !== "200") {
     console.error("[userLogout] logout failed");
     return { status: "failed" };
