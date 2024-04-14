@@ -141,8 +141,8 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
     // put token into local storage
 
     const result = await userLogin(formData);
-    console.log("[handleLoginSubmit] Token: ", result.data.token);
     if (result.status === "success") {
+      console.log("[handleLoginSubmit] Token: ", result.data.token);
       localStorage.setItem("dualblog-user-token", result.data.token);
       setIsAuthenticated(true);
       setLoginPanelOpen(false);
@@ -161,7 +161,7 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
   return (
     loginPanelOpen && (
       <div className="absolute items-center justify-center">
-        <motion.div
+        <motion.button
           animate={loginPanelOpen ? "open" : "closed"}
           className="absolute flex justify-center items-center w-screen h-screen"
         >
@@ -174,7 +174,7 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
           <div // if not login, add a darken overlay to the page, and make it unclickable
             className={`fixed inset-0 bg-black opacity-50 z-40`}
           ></div>
-        </motion.div>
+        </motion.button>
       </div>
     )
   );
