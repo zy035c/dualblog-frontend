@@ -9,7 +9,7 @@ import Posts from "./tblog/tblog";
 import SignUp from "./user/sign_up";
 import NewPostSignIn from "./tblog/new_post";
 import UserDropdown from "./user/user_dropdown";
-// import SettingsLayout from "./user/settings/layout";
+import SettingsLayout from "src/blog/user/settings/layout";
 
 const HeaderOption = ({ to, text }) => {
   return (
@@ -55,7 +55,7 @@ const StartPage = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/write_post" element={<NewPostSignIn />} />
         <Route path="/primer" element={<PrimeList />} />
-        {/* <Route path="/settings" element={<SettingsLayout />} /> */}
+        <Route path="/settings" element={<SettingsLayout />} />
       </Routes>
 
       <div className="text-white font-serif">
