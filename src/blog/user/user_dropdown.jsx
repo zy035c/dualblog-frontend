@@ -8,7 +8,7 @@ import { userLogout } from "src/apis/api_user";
 import { MenuItem } from "./user_dropdown_item";
 import { UserDropdownToggle } from "./user_dropdown_toggle";
 import { useDimensions } from "src/utils/use_dimensions";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   open: {
@@ -29,20 +29,28 @@ const logoutHandler = async () => {
   }
 };
 
-const ItemList = () => (
-  <motion.ul variants={variants} className="">
-    <MenuItem i={0}>
-      关于
-      <Link to="/settings" />
-    </MenuItem>
-    <MenuItem i={1}>归档</MenuItem>
-    <MenuItem i={2}>主页</MenuItem>
-    <MenuItem i={3}>私信</MenuItem>
-    <MenuItem i={4} handler={logoutHandler}>
-      登出
-    </MenuItem>
-  </motion.ul>
-);
+const ItemList = () => {
+  const nav = useNavigate();
+
+  const settingHandler = () => {
+    console.log("setting clicked");
+    nav("/settings");
+  };
+
+  return (
+    <motion.ul variants={variants} className="">
+      <MenuItem i={0} handler={settingHandler}>
+        关于
+      </MenuItem>
+      <MenuItem i={1}>归档</MenuItem>
+      <MenuItem i={2}>主页</MenuItem>
+      <MenuItem i={3}>私信</MenuItem>
+      <MenuItem i={4} handler={logoutHandler}>
+        登出
+      </MenuItem>
+    </motion.ul>
+  );
+};
 
 const sidebar = {
   open: (height = 1000) => ({

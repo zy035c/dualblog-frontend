@@ -20,17 +20,16 @@ const variants = {
 
 const colors = ["#F95860", "#AAD898", "#FAAF5C", "#FDF791", "#FFFFFF"];
 
-export const MenuItem = ({ i, children, handler }) => {
+const MenuItem = ({ i, children, handler }) => {
   const style = {
     border: `2px solid ${shadeColor(colors[i], -0.05)}`,
     backgroundColor: shadeColor(colors[i], -0.005),
   };
 
-
   const textStyle = {
     border: `2px solid ${shadeColor(colors[i], -0.1)}`,
     backgroundColor: colors[i],
-  }
+  };
 
   return (
     <motion.li
@@ -40,7 +39,18 @@ export const MenuItem = ({ i, children, handler }) => {
       onClick={handler}
     >
       <div className="icon-placeholder" style={style} />
-      <div className={`text-placeholder text-pigliver-950 text-center font-mono justify-center items-center`} style={textStyle}> {children} </div>
+      <div
+        className={`text-placeholder text-pigliver-950 text-center font-mono justify-center items-center`}
+        style={textStyle}
+      >
+        {children}
+      </div>
     </motion.li>
   );
 };
+
+MenuItem.defaultProps = {
+  handler: () => {},
+};
+
+export { MenuItem };
