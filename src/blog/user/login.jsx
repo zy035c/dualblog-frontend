@@ -74,7 +74,12 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
         登录
       </h2>
 
-      <form className="flex flex-col gap-4">
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={() => {
+          handleLoginSubmit(formData);
+        }}
+      >
         <input
           type="email"
           placeholder="Email"
@@ -99,9 +104,6 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
         </label>
         <motion.div
           type="submit"
-          onClick={() => {
-            handleLoginSubmit(formData);
-          }}
           className="bg-pigliver-400 text-pigliver-800 py-2 px-4 rounded-md hover:bg-pigliver-500 w-fit items-end h-10 font-bold text-center cursor-pointer"
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.09 }}
@@ -161,7 +163,7 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
   return (
     loginPanelOpen && (
       <div className="absolute items-center justify-center">
-        <motion.button
+        <motion.div
           animate={loginPanelOpen ? "open" : "closed"}
           className="absolute flex justify-center items-center w-screen h-screen"
         >
@@ -174,7 +176,7 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
           <div // if not login, add a darken overlay to the page, and make it unclickable
             className={`fixed inset-0 bg-black opacity-50 z-40`}
           ></div>
-        </motion.button>
+        </motion.div>
       </div>
     )
   );
