@@ -73,4 +73,15 @@ const userLogout = async (headers) => {
   return { status: "success" };
 };
 
+const deleteAccount = async (headers) => {
+
+  if (mode === "dev") {
+    console.log("[deleteAccount] dev delete success");
+    return { status: "success" };
+  }
+
+  const parsedData = await simpleGet("/user/delete", "delete", headers);
+
+};
+
 export { getAllUser, createNewUser, checkLogin, userLogin, userLogout };

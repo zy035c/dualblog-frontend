@@ -60,8 +60,8 @@ const StartPage = () => {
 
         <Route path="/posts/*" element={<Posts />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/write_post" element={<NewPostSignIn />} />
-        <Route path="/primer" element={<PrimeList />} />
+        <Route path="/write_post/*" element={<NewPostSignIn />} />
+        <Route path="/primer/*" element={<PrimeList />} />
         <Route path="/settings/*" element={<SettingsLayout />} />
       </Routes>
 
