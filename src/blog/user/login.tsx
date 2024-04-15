@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 import { checkLogin, userLogin } from "src/apis/api_user";
 import { useNavigate } from "react-router-dom"; // 导入 useHistory 来管理页面历史记录
-import { useToast } from "src/components/ui/use-toast";
+import { toast } from "src/components/ui/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -141,7 +141,6 @@ const LoginPanel = ({ setLoginPanelOpen, failCallback, handleLoginSubmit }) => {
 const LoginRequired = ({ successCallback, failCallback, children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginPanelOpen, setLoginPanelOpen] = useState(false);
-  const { toast } = useToast();
 
   useEffect(() => {
     (async () => {
@@ -175,14 +174,14 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
       toast({
         title: "登录成功",
         description: "我将以高达形态出击。",
-        duration: 2000,
+        duration: 1500,
       });
     } else {
       console.error("[handleLoginSubmit] Login failed");
       toast({
         title: "登录失败，请检查用户名和密码",
         description: "我宁愿犯错，也不愿什么都不做。",
-        duration: 2000,
+        duration: 1500,
       });
     }
   };

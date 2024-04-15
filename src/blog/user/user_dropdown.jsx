@@ -9,7 +9,7 @@ import { MenuItem } from "./user_dropdown_item";
 import { UserDropdownToggle } from "./user_dropdown_toggle";
 import { useDimensions } from "src/utils/use_dimensions";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "src/components/ui/use-toast";
+import { toast } from "src/components/ui/use-toast";
 
 const variants = {
   open: {
@@ -22,7 +22,6 @@ const variants = {
 
 const ItemList = ({ toggleOpen }) => {
   const nav = useNavigate();
-  const { toast } = useToast();
 
   const settingsHandler = () => {
     console.log("settings clicked");
