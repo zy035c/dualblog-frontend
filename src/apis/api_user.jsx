@@ -81,7 +81,11 @@ const deleteAccount = async (headers) => {
   }
 
   const parsedData = await simpleGet("/user/delete", "delete", headers);
-
+  if (parsedData.code !== "200") {
+    console.error("[deleteAccount] delete failed");
+    return { status: "failed" };
+  }
+  return { status: "success" };
 };
 
-export { getAllUser, createNewUser, checkLogin, userLogin, userLogout };
+export { getAllUser, createNewUser, checkLogin, userLogin, userLogout,deleteAccount};

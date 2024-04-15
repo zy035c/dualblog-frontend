@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CalendarIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-import { format } from "date-fns"
+import { addYears, format } from "date-fns"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -35,9 +35,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "src/components/ui/popover"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "src/components/ui/alert-dialog"
 
 import * as React from 'react';
 import { toast } from "src/components/ui/use-toast"
+import {deleteAccount} from "src/apis/api_user"
+import { useNavigate } from "react-router-dom"
 
 const languages = [
   { label: "English", value: "en" },
@@ -77,6 +90,7 @@ const defaultValues: Partial<AccountFormValues> = {
 }
 
 export function AccountForm() {
+  const nav = useNavigate();
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
@@ -91,6 +105,21 @@ export function AccountForm() {
         </pre>
       ),
     })
+  }
+
+  const handleDelete = (e) =>{
+
+    const token = localStorage.getItem("dualblog-user-token");
+    const res = deleteAccount(token);
+    if (res) {
+      console.log("Delete Success");
+      toast({
+        title: "账号已删除",
+        description: "OK",
+        duration: 2000,
+      });
+      nav("/");
+    } 
   }
 
   return (
@@ -219,6 +248,26 @@ export function AccountForm() {
           )}
         />
         <Button type="submit">Update account</Button>
+        <div className="ml-4">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline">Delete account</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your
+                  account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </form>
     </Form>
   )

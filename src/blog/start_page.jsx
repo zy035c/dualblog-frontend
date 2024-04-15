@@ -13,9 +13,7 @@ import NewPostSignIn from "./tblog/new_post";
 import UserDropdown from "./user/user_dropdown";
 import SettingsLayout from "src/blog/user/settings/layout";
 
-import { useToast } from "src/components/ui/use-toast";
-import { ToastAction } from "src/components/ui/toast";
-import { Button } from "src/components/ui/button";
+
 
 const HeaderOption = ({ to, text }) => {
   return (
@@ -49,7 +47,6 @@ const DemoHeader = () => {
 const StartPage = () => {
   const location = useLocation();
   const { hash, pathname, search } = location;
-  const { toast } = useToast();
   return (
     <div>
       <DemoHeader />

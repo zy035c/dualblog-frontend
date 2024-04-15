@@ -1,6 +1,13 @@
 import { simpleGet, simplePost } from "./api";
 
+const mode = process.env.REACT_APP_MODE;
+
 const getAllBlog = async () => {
+  // if (mode === "dev") {
+  //   console.log("[getAllBlog] dev check get success");
+  //   return {};
+  // }
+
   const parsedData = await simpleGet("/blog/posts", "getAllBlogPosts");
   return parsedData;
 };
