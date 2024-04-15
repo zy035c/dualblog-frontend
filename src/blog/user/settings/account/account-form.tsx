@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CalendarIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-import { addYears, format } from "date-fns"
+import { format } from "date-fns"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -11,14 +11,10 @@ import { Button } from "src/components/ui/button"
 import { Calendar } from "src/components/ui/calendar"
 import {
   Command,
-  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "src/components/ui/command"
 import {
   Form,
@@ -51,6 +47,7 @@ import * as React from 'react';
 import { toast } from "src/components/ui/use-toast"
 import { deleteAccount } from "src/apis/api_user"
 import { useNavigate } from "react-router-dom"
+import { delete_acount_description } from "src/texts/toast_text"
 
 const languages = [
   { label: "English", value: "en" },
@@ -116,7 +113,7 @@ export function AccountForm() {
       console.log("Delete Success");
       toast({
         title: "账号已删除",
-        description: "OK",
+        description: delete_acount_description(),
         duration: 2000,
       });
       nav("/");
@@ -258,7 +255,7 @@ export function AccountForm() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete your
+                  哦我的伙计，这可不是在开玩笑！这将永久删除您的帐户和所有相关数据。这个操作无法撤销。<br />This action cannot be undone. This will permanently delete your
                   account and remove your data from our servers.
                 </AlertDialogDescription>
               </AlertDialogHeader>

@@ -10,6 +10,7 @@ import { UserDropdownToggle } from "./user_dropdown_toggle";
 import { useDimensions } from "src/utils/use_dimensions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "src/components/ui/use-toast";
+import { logout_description } from "src/texts/toast_text";
 
 const variants = {
   open: {
@@ -38,7 +39,7 @@ const ItemList = ({ toggleOpen }) => {
 
       toast({
         title: "您已登出",
-        description: "长路漫漫，惟剑作伴。",
+        description: logout_description(),
         duration: 2000,
       });
       console.log("[user_dropdown]logging out success");

@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
+import { login_description, login_failed_description, logout_description } from 'src/texts/toast_text';
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage
@@ -173,14 +174,14 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
       successCallback();
       toast({
         title: "登录成功",
-        description: "我将以高达形态出击。",
+        description: login_description(),
         duration: 1500,
       });
     } else {
       console.error("[handleLoginSubmit] Login failed");
       toast({
         title: "登录失败，请检查用户名和密码",
-        description: "我宁愿犯错，也不愿什么都不做。",
+        description: login_failed_description(),
         duration: 1500,
       });
     }
