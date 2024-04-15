@@ -110,7 +110,8 @@ export function AccountForm() {
   const handleDelete = (e) =>{
 
     const token = localStorage.getItem("dualblog-user-token");
-    const res = deleteAccount(token);
+    const data = {"token":token};
+    const res = deleteAccount(data);
     if (res) {
       console.log("Delete Success");
       toast({
