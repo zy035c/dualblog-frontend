@@ -49,7 +49,7 @@ import {
 
 import * as React from 'react';
 import { toast } from "src/components/ui/use-toast"
-import {deleteAccount} from "src/apis/api_user"
+import { deleteAccount } from "src/apis/api_user"
 import { useNavigate } from "react-router-dom"
 
 const languages = [
@@ -107,10 +107,10 @@ export function AccountForm() {
     })
   }
 
-  const handleDelete = (e) =>{
+  const handleDelete = (e) => {
 
     const token = localStorage.getItem("dualblog-user-token");
-    const data = {"token":token};
+    const data = { "token": token };
     const res = deleteAccount(data);
     if (res) {
       console.log("Delete Success");
@@ -120,7 +120,7 @@ export function AccountForm() {
         duration: 2000,
       });
       nav("/");
-    } 
+    }
   }
 
   return (
@@ -206,8 +206,8 @@ export function AccountForm() {
                     >
                       {field.value
                         ? languages.find(
-                            (language) => language.value === field.value
-                          )?.label
+                          (language) => language.value === field.value
+                        )?.label
                         : "Select language"}
                       <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
