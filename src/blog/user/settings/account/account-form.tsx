@@ -253,7 +253,7 @@ export function AccountForm() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>不要说我们没有警告过你...</AlertDialogTitle>
                 <AlertDialogDescription>
                   哦我的伙计，这可不是在开玩笑！这将永久删除您的帐户和所有相关数据。这个操作无法撤销。<br />This action cannot be undone. This will permanently delete your
                   account and remove your data from our servers.

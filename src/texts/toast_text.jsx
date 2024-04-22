@@ -10,6 +10,8 @@ export const login_description = () => {
   const descriptions = [
     "我将以高达形态出击。",
     "西比拉镇压执行系统 使用许诺确认 适正用户。",
+    "欢迎来到祖安！",
+    "To the arena!",
   ];
   return descriptions[Math.floor(Math.random() * descriptions.length)];
 };
@@ -27,6 +29,9 @@ export const login_failed_description = () => {
   const descriptions = [
     "我宁愿犯错，也不愿什么都不做。",
     "除了火药以外，什么也没有。",
+    "不要放弃，直到做对为止！",
+    "第七次重新来过。",
+    "想到好主意了吗？",
   ];
   return descriptions[Math.floor(Math.random() * descriptions.length)];
 };
@@ -37,7 +42,7 @@ export const sign_up_description = (isSuccess) => {
     "因为我们是家人。",
   ];
 
-  const fail_descriptions = ["被遗弃，被遗忘。"];
+  const fail_descriptions = ["被遗弃，被遗忘。", "我可没时间胡闹。"];
 
   if (isSuccess) {
     return ok_descriptions[Math.floor(Math.random() * ok_descriptions.length)];
@@ -46,4 +51,9 @@ export const sign_up_description = (isSuccess) => {
       Math.floor(Math.random() * fail_descriptions.length)
     ];
   }
+};
+
+export const random_fail_description = () => {
+  const descriptions = ["又在祈祷了吗？", "生活就是这样"];
+  return descriptions[Math.floor(Math.random() * descriptions.length)];
 };

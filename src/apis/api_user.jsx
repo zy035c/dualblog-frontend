@@ -9,7 +9,12 @@ const getAllUser = async () => {
 
 /* write an api to post a blog with title and content */
 const createNewUser = async (formData) => {
-  const parsedData = await simplePost("/user/create", "addUser", formData);
+  console.log("[createNewUser] formData", formData);
+  if (mode === "dev") {
+    console.log("[createNewUser] dev check create success");
+    return { status: "success" };
+  }
+  const parsedData = await simplePost("/user/create", "addUser", formData, {});
   console.log("[createNewUser] create result", parsedData);
 
   if (parsedData.code === "409") {

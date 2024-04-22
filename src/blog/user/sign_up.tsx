@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createNewUser } from "src/apis/api_user";
 import { toast } from "src/components/ui/use-toast";
-import { sign_up_description } from "src/texts/toast_text";
+import { sign_up_description, random_fail_description } from "src/texts/toast_text";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -14,7 +14,6 @@ import {
 } from "src/components/ui/card";
 import { Button } from "src/components/ui/button";
 import { Input } from "src/components/ui/input";
-import { Label } from "src/components/ui/label";
 import * as React from 'react';
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +21,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "src/components/ui/form";
 import { motion } from "framer-motion";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "src/components/ui/alert-dialog"
 
 const SignUp = () => {
   // const [formData, setFormData] = useState({
@@ -86,134 +96,10 @@ const SignUp = () => {
   //   }
   // };
 
-  const validateEmail = (email) => {
-    // Basic email validation regex
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  };
-
 
   return (
     <>
       <RegisterForm />
-      {/* <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email<span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-          {errors.emailFormat && (
-            <p className="text-red-500 text-xs mt-1">{errors.emailFormat}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password<span className="text-red-500">*</span>
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Confirm Password<span className="text-red-500">*</span>
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-          {errors.passwordMatch && (
-            <p className="text-red-500 text-xs mt-1">{errors.passwordMatch}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Username<span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="phoneNumber"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phone}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-          />
-        </div>
-        {/* CAPTCHA service goes here */}
-      {/* <div className="mb-4">
-          <label
-            htmlFor="captcha"
-            className="block text-sm font-medium text-gray-700"
-          >
-            CAPTCHA
-          </label>
-          <input
-            type="text"
-            id="captcha"
-            name="captcha"
-            value={formData.captcha}
-            onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-        >
-          Submit
-        </button>
-        {errors.required && (
-          <p className="text-red-500 text-xs mt-2">{errors.required}</p>
-        )} 
-      </form> */}
     </>
   );
 };
@@ -221,23 +107,27 @@ const SignUp = () => {
 
 const RegisterForm = () => {
 
+  const [showDialog, setShowDialog] = useState(false);
+
+  const nav = useNavigate();
 
   const registrationFormSchema = z.object({
-    email: z.string().email({ message: "请输入有效的邮箱地址" }),
-    password: z.string().min(6, { message: "密码长度至少为6位" }),
-    confirmPassword: z.string().min(6),
-    userName: z.string().optional(),
+    email: z.string().email({ message: "请输入有效的邮箱地址" }).max(48),
+    password: z.string().min(6, { message: "密码长度至少为6位" }).max(48),
+    confirmPassword: z.string(),
+    userName: z.string().max(48),
     phone: z.string().optional(),
     firstName: z.string().optional(),
     lastName: z.string().optional(),
   }).superRefine(({ confirmPassword, password }, ctx) => {
     if (password !== confirmPassword) {
+      console.log("密码不一致。");
       ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match"
+        code: z.ZodIssueCode.custom,
+        message: "密码不一致",
+        path: ["confirmPassword"]
       });
     }
-    return ctx;
   });
 
   const form = useForm<z.infer<typeof registrationFormSchema>>({
@@ -248,40 +138,109 @@ const RegisterForm = () => {
       userName: "",
       phone: "",
       firstName: "",
-      lastName: ""
+      lastName: "",
+      confirmPassword: ""
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof registrationFormSchema>) => {
-    console.log("data:", data);
+  const onSubmit = async (values: z.infer<typeof registrationFormSchema>) => {
+    console.log("Form submit values:", values);
+    setShowDialog(true);
+  };
+
+  const handleCreateUser = async () => {
+
+    const values = form.getValues();
+
+    const res = await createNewUser(values);
+
+    if (res.status === "success") {
+      console.log("User created successfully:", res);
+      toast({
+        title: "注册成功",
+        description: sign_up_description(true),
+        duration: 1800,
+      });
+      nav("/");
+    } else if (res.status === "exists") {
+      console.error("Failed to create user:", res);
+      toast({
+        title: "这个邮箱已被注册",
+        description: sign_up_description(false),
+        duration: 1800,
+      });
+    } else {
+      console.error("Failed to create user:", res);
+      toast({
+        title: "注册失败",
+        description: random_fail_description(),
+        duration: 1500,
+      });
+    }
+    setShowDialog(false);
+    form.reset();
   };
 
   return (
-    <Card className="mx-auto max-w-md">
-      <CardHeader>
-        <CardTitle className="text-xl">注册</CardTitle>
-        <CardDescription>
-          不过，王者们一定会舍弃王位吧，而无火的余灰们将纷沓而至。
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4"
-          >
-            <div className="grid gap-4">
+    <>
+      <Card className="mx-auto max-w-md mt-8">
+        <CardHeader>
+          <CardTitle className="text-xl">请注册。</CardTitle>
+          <CardDescription>
+            不过，王者们一定会舍弃王位吧，而无火的余灰们将纷沓而至。
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4"
+            >
+              <div className="grid gap-4">
 
-              <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="grid gap-2">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>First Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} type="lastName" placeholder="Karl" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid gap-2">
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Last Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} type="lastName" placeholder="Marx" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
                 <div className="grid gap-2">
                   <FormField
                     control={form.control}
-                    name="firstName"
+                    name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>First Name</FormLabel>
+                        <FormLabel>电子邮箱</FormLabel>
                         <FormControl>
-                          <Input {...field} type="lastName" placeholder="Karl" />
+                          <Input {...field} type="email" placeholder="proletarian@bishop.com" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -292,118 +251,111 @@ const RegisterForm = () => {
                 <div className="grid gap-2">
                   <FormField
                     control={form.control}
-                    name="lastName"
+                    name="userName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last Name</FormLabel>
+                        <FormLabel>用户名</FormLabel>
                         <FormControl>
-                          <Input {...field} type="lastName" placeholder="Marx" />
+                          <Input {...field} type="userName" placeholder="salvare000" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
-              </div>
 
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>电子邮箱</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="email" placeholder="proletarian@bishop.com" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+                <div className="grid gap-2">
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>手机号</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="phone" placeholder="114514" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="userName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>用户名</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="userName" placeholder="Capitalist)_femboy" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+                <div className="grid gap-2">
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>密码</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="password" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>手机号</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="phone" placeholder="114514" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+                <div className="grid gap-2">
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>确认密码</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="password" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>密码</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="password" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>确认密码</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="password" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <motion.div
-                whileTap={{ scale: 0.99 }}
-                whileHover={{ scale: 1.01 }} >
-                <Button className="w-full" type="submit">
-                  创建账号
+                <motion.div
+                  whileTap={{ scale: 0.99 }}
+                  whileHover={{ scale: 1.01 }} >
+                  <Button className="w-full" type="submit">
+                    创建账号
+                  </Button>
+                </motion.div>
+                <Button variant="outline" className="w-full">
+                  Sign up with GitHub
                 </Button>
-              </motion.div>
-              <Button variant="outline" className="w-full">
-                Sign up with GitHub
-              </Button>
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Already have an account? Sign in
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+              </div>
+              <div className="mt-4 text-center text-sm">
+                Already have an account? Sign in
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+
+      <AlertDialog open={showDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>确定要创建帐号吗?</AlertDialogTitle>
+            <AlertDialogDescription>
+              将为 {form.getValues("email")} 创建帐号。<br /><br />
+              您正在成功！
+              好东西就要来了。<i>dblog</i>可让您长时间跟进重要事宜。
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => setShowDialog(false)}
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleCreateUser}
+            >
+              Submit
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
 
