@@ -10,7 +10,17 @@ const getAllUser = async () => {
 /* write an api to post a blog with title and content */
 const createNewUser = async (formData) => {
   const parsedData = await simplePost("/user/create", "addUser", formData);
-  return parsedData;
+  console.log("[createNewUser] create result", parsedData);
+
+  if (parsedData.code === "409") {
+    console.error("[createNewUser] user already exists");
+    return { status: "exists" };
+  } else if (parsedData.code !== "200") {
+    console.error("[createNewUser] create failed");
+    return { status: "failed" };
+  }
+
+  return { status: "success" };
 };
 
 const checkLogin = async (headers) => {
@@ -74,7 +84,6 @@ const userLogout = async (headers) => {
 };
 
 const deleteAccount = async (headers) => {
-
   if (mode === "dev") {
     console.log("[deleteAccount] dev delete success");
     return { status: "success" };
@@ -88,4 +97,11 @@ const deleteAccount = async (headers) => {
   return { status: "success" };
 };
 
-export { getAllUser, createNewUser, checkLogin, userLogin, userLogout,deleteAccount};
+export {
+  getAllUser,
+  createNewUser,
+  checkLogin,
+  userLogin,
+  userLogout,
+  deleteAccount,
+};

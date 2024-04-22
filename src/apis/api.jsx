@@ -43,7 +43,7 @@ const simplePost = async (endpoint, endpointName, data, headers) => {
 
   // if (!response.ok) {
   //   console.error(`${endpointName}: Network response was not ok`);
-  //   return null;
+  //   return response;
   // }
   const parsed = await response.json();
   console.log("Posted Data at " + endpoint + ", " + endpointName);
