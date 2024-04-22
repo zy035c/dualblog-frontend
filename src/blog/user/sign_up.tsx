@@ -21,20 +21,20 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "src/components/ui/form";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    username: "",
-    phone: "",
-    captcha: "",
-  });
-  const [errors, setErrors] = useState({});
-  const nav = useNavigate();
+  // const [formData, setFormData] = useState({
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   username: "",
+  //   phone: "",
+  //   captcha: "",
+  // });
+  // const [errors, setErrors] = useState({});
+  // const nav = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -258,7 +258,7 @@ function RegisterForm() {
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={() => console.log("submitting")}
+            // onSubmit={() => console.log("submitting")}
             className="space-y-4"
           >
             <div className="grid gap-4">
@@ -377,12 +377,12 @@ function RegisterForm() {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
+              {/* <Button className="w-full">
                 创建账号
-              </Button>
-              <Button variant="outline" className="w-full">
+              </Button> */}
+              {/* <Button variant="outline" className="w-full">
                 Sign up with GitHub
-              </Button>
+              </Button> */}
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}

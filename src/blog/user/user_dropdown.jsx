@@ -102,7 +102,10 @@ export const UserDropdown = () => {
             className="background bg-pigliver-300 shadow-2xlg border-2 border-pigliver-400 rounded-xl"
             variants={sidebar}
           />
-          <div className="z-30">
+          <div
+            className="z-30"
+            style={{ pointerEvents: isOpen ? "auto" : "none" }}
+          >
             <ItemList toggleOpen={toggleOpen} />
           </div>
           <UserDropdownToggle toggle={() => toggleOpen()} />
