@@ -8,7 +8,7 @@ import { Toaster } from "src/components/ui/toaster";
 
 const App = () => {
   return (
-    <div className="bg-gradient-to-br from-pigliver-400 via-pigliver-600 to-pigliver-700 h-screen w-screen">
+    <div className="bg-gradient-to-br from-pigliver-400 via-pigliver-600 to-pigliver-700 h-screen">
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<StartPage />} />
