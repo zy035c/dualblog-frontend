@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createNewUser } from "src/apis/api_user";
 import { toast } from "src/components/ui/use-toast";
 import { sign_up_description } from "src/texts/toast_text";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const SignUp = () => {
     captcha: "",
   });
   const [errors, setErrors] = useState({});
+  const nav = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,6 +55,7 @@ const SignUp = () => {
           description: sign_up_description(true),
           duration: 1500,
         });
+        nav("/");
       } else if (res.status === "exists") {
         console.error("Failed to create user:", res);
         toast({
