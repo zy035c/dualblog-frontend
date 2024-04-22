@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
-import { login_description, login_failed_description, logout_description } from 'src/texts/toast_text';
+import { login_description, login_failed_description } from 'src/texts/toast_text';
 
 const checkLoginStatus = async () => {
   // get dualblog-user-token from local storage

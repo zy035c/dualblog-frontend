@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import { createNewUser } from "src/apis/api_user";
 import { toast } from "src/components/ui/use-toast";
@@ -19,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "src/components/ui/form";
+import { motion } from "framer-motion";
 
 const SignUp = () => {
   // const [formData, setFormData] = useState({
@@ -216,7 +219,7 @@ const SignUp = () => {
 };
 
 
-function RegisterForm() {
+const RegisterForm = () => {
 
 
   const registrationFormSchema = z.object({
@@ -244,8 +247,14 @@ function RegisterForm() {
       password: "",
       userName: "",
       phone: "",
+      firstName: "",
+      lastName: ""
     },
   });
+
+  const onSubmit = async (data: z.infer<typeof registrationFormSchema>) => {
+    console.log("data:", data);
+  };
 
   return (
     <Card className="mx-auto max-w-md">
@@ -258,7 +267,7 @@ function RegisterForm() {
       <CardContent>
         <Form {...form}>
           <form
-            // onSubmit={() => console.log("submitting")}
+            onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4"
           >
             <div className="grid gap-4">
@@ -369,7 +378,7 @@ function RegisterForm() {
                     <FormItem>
                       <FormLabel>确认密码</FormLabel>
                       <FormControl>
-                        <Input {...field} type="confirmPassword" />
+                        <Input {...field} type="password" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -377,18 +386,19 @@ function RegisterForm() {
                 />
               </div>
 
-              {/* <Button className="w-full">
-                创建账号
-              </Button> */}
-              {/* <Button variant="outline" className="w-full">
+              <motion.div
+                whileTap={{ scale: 0.99 }}
+                whileHover={{ scale: 1.01 }} >
+                <Button className="w-full" type="submit">
+                  创建账号
+                </Button>
+              </motion.div>
+              <Button variant="outline" className="w-full">
                 Sign up with GitHub
-              </Button> */}
+              </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
-              {/* <Link href="#" className="underline">
-            Sign in
-          </Link> */}
+              Already have an account? Sign in
             </div>
           </form>
         </Form>
