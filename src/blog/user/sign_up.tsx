@@ -183,7 +183,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Card className="mx-auto max-w-md mt-8">
+      <Card className="mx-auto max-w-md mt-36">
         <CardHeader>
           <CardTitle className="text-xl">请注册。</CardTitle>
           <CardDescription>
