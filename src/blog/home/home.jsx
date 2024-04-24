@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import PrimeList from "./prime_list";
+import { HeaderMenu } from "./header_memu";
+import "./home.css";
+
+import { first_sentence } from "src/texts/index_text";
 
 export default class Home extends Component {
   render() {
@@ -24,6 +28,36 @@ const PoweredBy = () => {
   );
 };
 
+const images = [
+  { url: "/index/the_four/flower1.jpg" },
+  { url: "/index/the_four/tokyo.jpg" },
+  { url: "/index/the_four/tele.jpg" },
+  { url: "/index/the_four/flower2.jpg" },
+];
+
+const ImageGallery = ({ images }) => {
+  return (
+    <>
+      <div className="flex flex-row overflow-hidden h-[60vh] z-[-10]">
+        {images.map((image, index) => (
+          <div key={index} className="flex w-1/4 h-full">
+            <img
+              src={image.url}
+              alt="w"
+              className="flex w-auto h-[40rem] object-cover"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="fixed top-0 left-0 h-[60vh] w-full bg-black opacity-15" />
+      <div className="fixed top-0 left-0 h-[60vh] w-full opacity-60 vignette" />
+      <div className="fixed top-[49vh] left-0 h-auto w-full">
+        <p className="px-8 text-white text-5xl opacity-90">{first_sentence()}</p>
+      </div>
+    </>
+  );
+};
+
 const YouAreRightButGenshin = (props) => (
   <div className="text-md text-white bg-gradient-to-br from-pigliver-400 via-pigliver-700 to-pigliver-800 w-96 rounded-2xl border-pigliver-600 border-[1px] overflow-hidden card-shadow mx-12 my-6">
     <div className="text-2xl bg-pigliver-200 text-pigliver-500 p-4 sticky font-thin">
@@ -37,18 +71,9 @@ const YouAreRightButGenshin = (props) => (
 
 const HomePage = () => {
   return (
-    <div>
-      <div className="m-12 mx-12">
-        <h1 className="text-white text-4xl font-serif">
-          伟大领袖，伟大导师，伟大舵手最新指示：<br></br>把世界管起来！
-        </h1>
-      </div>
-
-      <div className="flex flex-row">
-        <YouAreRightButGenshin />
-        <PoweredBy />
-      </div>
-    </div>
+    <>
+      <ImageGallery images={images} />
+    </>
   );
 };
 

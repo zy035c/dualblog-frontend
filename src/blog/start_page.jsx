@@ -12,8 +12,7 @@ import SignUp from "./user/sign_up";
 import NewPostSignIn from "./tblog/new_post";
 import UserDropdown from "./user/user_dropdown";
 import SettingsLayout from "src/blog/user/settings/layout";
-
-
+import { HeaderMenu } from "./home/header_memu";
 
 const HeaderOption = ({ to, text }) => {
   return (
@@ -44,13 +43,26 @@ const DemoHeader = () => {
   );
 };
 
-const StartPage = () => {
+const DebugInfo = () => {
   const location = useLocation();
   const { hash, pathname, search } = location;
+
+  return (
+    <div className="text-white font-serif">
+      <p className="text-white">[Debug Info]</p>
+      Pathname: <b>{pathname}</b>
+      <br />
+      Search params: <b>{search}</b>
+      <br />
+      Hash: <b>{hash}</b>
+    </div>
+  );
+};
+
+const StartPage = () => {
   return (
     <div>
-      <DemoHeader />
-
+      <HeaderMenu />
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path={`/`} element={<HomePage />} />
@@ -61,15 +73,8 @@ const StartPage = () => {
         <Route path="/primer/*" element={<PrimeList />} />
         <Route path="/settings/*" element={<SettingsLayout />} />
       </Routes>
-
-      <div className="text-white font-serif">
-        <p className="text-white">[Debug Info]</p>
-        Pathname: <b>{pathname}</b>
-        <br />
-        Search params: <b>{search}</b>
-        <br />
-        Hash: <b>{hash}</b>
-      </div>
+      <UserDropdown />
+      <DebugInfo />
     </div>
   );
 };

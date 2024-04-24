@@ -8,14 +8,17 @@ import { Toaster } from "src/components/ui/toaster";
 
 const App = () => {
   return (
-    <div className="bg-gradient-to-br from-pigliver-400 via-pigliver-600 to-pigliver-700 h-screen">
+    <>
+      <div className="fixed inset-0 overflow-hidden z-[-1] bg-black">
+        <div className="fixed inset-0 overflow-hidden z-[-1] bg-gradient-to-br from-gumi-yellow via-gumi-red to-gumi-orange opacity-75" />
+      </div>
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<StartPage />} />
         </Routes>
       </BrowserRouter>
       <Toaster />
-    </div>
+    </>
   );
 };
 

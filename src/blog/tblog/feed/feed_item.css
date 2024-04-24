@@ -1,0 +1,146 @@
+.featured-blog-text {
+    color: #c0c0c0;
+    opacity: 80%;
+    font-size: 0.88rem;
+    /* 调整字体大小 */
+    font-weight: 100;
+    /* 调整字体粗细 */
+    letter-spacing: 0.01rem;
+    /* 调整字间距 */
+    line-height: 1.6rem;
+    /* 调整行间距 */
+    font-family: 'Hiragino GB', 'Courier New', Courier, monospace;
+
+    /* add a #00ffff cyan theme but darker shadow, closely stick to the font */
+    /* 调整字体阴影 */
+    /* text-shadow: 1px 1px 1.5px #0d9191, 1px 1px 12px #00ffff, 1px 1px 5px #35cde8; */
+}
+
+.blog-div-bg {
+    margin-left: 160px;
+    width: 840px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: rgba(0, 0, 0);
+    opacity: 84%;
+}
+
+.blog-div {
+    width: 560px;
+    /* background-color: rgba(0, 0, 0, 0.76);
+    margin-left: 160px; */
+}
+
+
+@keyframes revealText {
+    from {
+        opacity: 0.90;
+        transform: translateX(70px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.text-animation {
+    display: inline-block;
+    animation: revealText 2.2s cubic-bezier(.39, .55, .17, 1.03) forwards
+}
+
+
+@keyframes fontFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-100);
+    }
+
+    12% {
+        opacity: 0.1;
+        transform: translateY(-100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.ease-in-back {
+    animation-name: fontFadeIn;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(.34, .79, .53, 1.15)
+}
+
+.my-avatar {
+    width: 90px;
+    height: 90px;
+    margin-top: 4px;
+}
+
+.self-info-column {
+    width: 330px;
+    /* background-color: #ececec; */
+    opacity: 98%;
+}
+
+.my-names {
+    color: #858585;
+    font-family: serif;
+    letter-spacing: 0.1px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* 定义一个动画，用于透明度从75到95的渐变 */
+@keyframes fadeIn {
+    from {
+        opacity: 0.75;
+    }
+
+    to {
+        opacity: 0.95;
+    }
+}
+
+/* 将动画绑定到元素 */
+.bookmark-deco {
+    opacity: 0.68;
+    /* 初始透明度 */
+    transition: opacity 0.4s ease-in-out;
+    /* 添加过渡效果 */
+}
+
+.bookmark-deco:hover {
+    opacity: 0.94;
+}
+
+.bookmark-deco:hover + .bookmark-timestamp,
+.bookmark-timestamp:hover {
+  opacity: 0.90;
+  transition: opacity 0.67s ease-in-out;
+}
+
+.bookmark-deco:not(:hover) + .bookmark-timestamp {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.intro-column-text {
+    color: #858585;
+    font-family: "Microsoft YaHei";
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.3rem;
+    letter-spacing: 0.02rem;
+}
+
+.bookmark-timestamp {
+    color:black;
+    font-family: "Yasashisa Gothic", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.3rem;
+    letter-spacing: 0.02rem;
+}
