@@ -10,7 +10,6 @@ import PrimeList from "./home/prime_list";
 import Posts from "./tblog/tblog";
 import SignUp from "./user/sign_up";
 import NewPostSignIn from "./tblog/new_post";
-import UserDropdown from "./user/user_dropdown";
 import SettingsLayout from "src/blog/user/settings/layout";
 import { HeaderMenu } from "./home/header_memu";
 
@@ -38,7 +37,6 @@ const DemoHeader = () => {
           <HeaderOption to="./write_post" text="Write Post" />
         </div>
       </div>
-      <UserDropdown />
     </div>
   );
 };
@@ -73,7 +71,6 @@ const StartPage = () => {
         <Route path="/primer/*" element={<PrimeList />} />
         <Route path="/settings/*" element={<SettingsLayout />} />
       </Routes>
-      <UserDropdown />
       <DebugInfo />
     </div>
   );

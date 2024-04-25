@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import PrimeList from "./prime_list";
-import { HeaderMenu } from "./header_memu";
 import "./home.css";
+import { Button } from "src/components/ui/button";
 
 import { first_sentence } from "src/texts/index_text";
+import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
+import { Card } from "src/components/ui/card";
 
 export default class Home extends Component {
   render() {
@@ -17,13 +20,61 @@ export default class Home extends Component {
   }
 }
 
+const TechCard = ({ url, name }) => {
+  return (
+    <Card className="rounded-none h-36">
+      <div className="flex flex-row justify-start h-auto">
+        <img src={url} className="max-h-36 w-[260px] relative object-contain" alt={name}></img>
+        <h1 className="flex md:text-4xl sm:text-3xl pt-12 ml-64">{name}</h1>
+      </div>
+    </Card>
+  );
+};
+
 const PoweredBy = () => {
+  const stacks = [
+    {
+      name: "GITHUB",
+      url: "Github.png",
+    },
+    {
+      name: "SPRING BOOT 3.0",
+      url: "JavaTransparent.png",
+    },
+    {
+      name: "REACT.JS",
+      url: "React.png",
+    },
+    {
+      name: "TAILWIND CSS",
+      url: "Tailwindcss6.png",
+    },
+  ];
+
   return (
     <>
-      {/* <div className="text-sm text-white bg-gradient-to-br from-pigliver-400 via-pigliver-700 to-pigliver-800 w-96 rounded-2xl border-pigliver-600 border-[1px] overflow-hidden card-shadow mx-12 my-6">
-        你好
-      </div>
-      <img className="" src="/index/powered_by/Github.png" alt="github"></img> */}
+      <p className="flex md:text-[42px] sm:text-2xl pt-12 text-white sub-title pb-12 pl-12">
+        技术栈
+      </p>
+
+      {stacks.map((tech, idx) => {
+        let myurl = "/index/powered_by/" + tech.url;
+        return <TechCard name={tech.name} url={myurl} />;
+      })}
+    </>
+  );
+};
+
+const FreatuedBlogs = () => {
+
+
+  return (
+    <>
+      <p className="flex md:text-[42px] sm:text-2xl pt-12 text-white sub-title pb-12 pl-12">
+        今日推荐
+      </p>
+
+      
     </>
   );
 };
@@ -37,7 +88,7 @@ const images = [
 
 const ImageGallery = ({ images }) => {
   return (
-    <>
+    <div>
       <div className="flex flex-row overflow-hidden h-[60vh] z-[-10]">
         {images.map((image, index) => (
           <div key={index} className="flex w-1/4 h-full">
@@ -49,12 +100,14 @@ const ImageGallery = ({ images }) => {
           </div>
         ))}
       </div>
-      <div className="fixed top-0 left-0 h-[60vh] w-full bg-black opacity-15" />
-      <div className="fixed top-0 left-0 h-[60vh] w-full opacity-60 vignette" />
-      <div className="fixed top-[49vh] left-0 h-auto w-full">
-        <p className="px-8 text-white text-5xl opacity-90">{first_sentence()}</p>
+      <div className="absolute top-0 left-0 h-[60vh] w-full bg-black opacity-30" />
+      <div className="absolute top-0 left-0 h-[60vh] w-full opacity-60 vignette" />
+      <div className="absolute md:top-[49vh] sm:top-[51vh] left-0 h-auto w-full">
+        <p className="px-8 text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl opacity-90 text-nowrap first-sentence">
+          {first_sentence()}
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -69,10 +122,69 @@ const YouAreRightButGenshin = (props) => (
   </div>
 );
 
+const AboutUs = () => (
+  <div>
+    <div className="flex flex-col items-center w-screen p-16 relative">
+      <h1 className="flex md:text-5xl sm:text-3xl pt-12 text-white">
+        YES, INDEED...
+      </h1>
+      <h6 className="about-question pb-12 text-gumi-green">「Dual Blog」是？</h6>
+      <h5 className="flex md:text-xl sm:text-lg pb-6 text-white">
+        「Dual Blog」是由两个软件工程师维护的独立博客平台、
+      </h5>
+      <h3 className="flex md:text-3xl sm:text-xl pb-16 text-white">
+        从技术侧的视角，追求更好的阅读和书写体验。
+      </h3>
+      <Button
+        variant="outline"
+        className="rounded-3xl h-12 w-48 text-md"
+        style={{ "font-family": "Noto Serif SC" }}
+      >
+        了解我们
+        <OpenInNewWindowIcon />
+      </Button>
+      <div className="absolute inset-0 h-fit inset-y-64 z-[-1] overflow-hidden">
+        <Banner />
+      </div>
+    </div>
+  </div>
+);
+
+const BannerCodeDualBlog = () => (
+  <motion.div
+    className="flex px-12 banner-code-dualblog text-7xl text-nowrap text-gray-300 opacity-80"
+    initial={{ x: "0%" }}
+    animate={{ x: "100%" }}
+    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+  >
+    コード デュアルブログ
+  </motion.div>
+);
+
+const Banner = () => {
+  return (
+    <>
+      <div className="w-full h-24 justify-center">
+        <div className="flex flex-row-reverse gap-4 h-full w-full">
+          <BannerCodeDualBlog />
+          <BannerCodeDualBlog />
+          <BannerCodeDualBlog />
+          <BannerCodeDualBlog />
+        </div>
+      </div>
+    </>
+  );
+};
+
 const HomePage = () => {
   return (
     <>
-      <ImageGallery images={images} />
+      <div className="flex flex-col">
+        <ImageGallery images={images} />
+        <AboutUs />
+        <PoweredBy />
+        <FreatuedBlogs />
+      </div>
     </>
   );
 };

@@ -90,7 +90,7 @@ export const UserDropdown = () => {
 
   return (
     <div>
-      <div className="absolute h-full right-0 top-0 flex z-10">
+      <div className="fixed h-full right-0 top-0 flex z-10">
         <motion.nav
           className="motion-nav"
           initial={false}

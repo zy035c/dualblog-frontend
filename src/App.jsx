@@ -9,8 +9,8 @@ import { Toaster } from "src/components/ui/toaster";
 const App = () => {
   return (
     <>
-      <div className="fixed inset-0 overflow-hidden z-[-1] bg-black">
-        <div className="fixed inset-0 overflow-hidden z-[-1] bg-gradient-to-br from-gumi-yellow via-gumi-red to-gumi-orange opacity-75" />
+      <div className="fixed inset-0 overflow-hidden z-[-1] bg-gray-900">
+        <div className="fixed inset-0 overflow-hidden z-[-1] bg-gradient-to-br from-gumi-green via-gumi-white to-gumi-yellow opacity-60" />
       </div>
       <BrowserRouter>
         <Routes>
