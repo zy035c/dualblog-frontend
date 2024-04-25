@@ -24,10 +24,21 @@ import UserDropdown from "src/blog/user/user_dropdown";
 import "./header_menu.css";
 
 const DbLogo = () => {
+
+    const nav = useNavigate();
+
+    const onClick = () => {
+        console.log("yes");
+        nav("/");
+    }
+
     return (
-        <div className='flex w-[180px] h-full mr-4'>
-            <img src="/index/db_logo/logo-green.png" alt="logo" className='absolute overflow-hidden w-[250px] h-auto top-[-108px]' />
-        </div>
+        <motion.div className='fixed inset-x-8 inset-y-3 overflow-hidden z-30 h-fit w-fit cursor-pointer' whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={onClick}>
+            <img
+                src="/index/db_logo/logo-green.png"
+                alt="logo"
+                className='flex overflow-hidden w-[230px] h-[110px] object-center object-cover' />
+        </motion.div>
 
     );
 }
@@ -42,8 +53,8 @@ const HeaderOptions = () => {
         nav("/signup");
     };
 
-    const readBlogHandler = () => {
-        nav("/posts");
+    const writeBlogHandler = () => {
+        nav("/write_post");
     };
 
     const OptionSpan = ({ text, onClick }) => (
@@ -57,8 +68,8 @@ const HeaderOptions = () => {
     return (
         <Menubar className='flex w-fit rounded-[50px] border-white bg-gray-300 opacity-85 h-[54px] px-8 right-12 border-[3px]'>
             <OptionSpan text={"关于"} onClick={null} />
-            <OptionSpan text={"注册"} onClick={null} />
-            <OptionSpan text={"写博"} onClick={null} />
+            <OptionSpan text={"注册"} onClick={signUpHandler} />
+            <OptionSpan text={"写博"} onClick={writeBlogHandler} />
             <OptionSpan text={"搜索"} onClick={null} />
         </Menubar>
     );
@@ -66,12 +77,15 @@ const HeaderOptions = () => {
 
 const TimelineOption = () => {
 
+    const nav = useNavigate();
+
     return (
         <Button
             variant='outline'
             className="flex align h-[54px] rounded-[50px] w-[160px] opacity-85 border-[3px] bg-gumi-green"
+            onClick={() => nav("/posts")}
         >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pl-2'>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pl-2 text-[16px]'>
                 时间线
             </motion.div>
             <ReaderIcon className='mx-2' />
@@ -95,12 +109,13 @@ export function HeaderMenu() {
     return (
         <>
             <DbLogo />
-            <div className="fixed inset-1 z-10 h-fit flex flex-row-reverse items-start justify-start p-4">
+            <div className="fixed inset-1 inset-y-3 z-20 h-fit flex flex-row-reverse items-start justify-start p-4">
                 <UserDropdown />
+                <div className='mr-36'>
+                    <TimelineOption />
+                </div>
 
-                <TimelineOption />
-
-                <div className='pr-12'>
+                <div className='mr-24'>
                     <HeaderOptions />
                 </div>
 

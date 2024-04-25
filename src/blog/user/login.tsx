@@ -189,7 +189,7 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
 
   return (
     loginPanelOpen && (
-      <div className="absolute items-center justify-center">
+      <div className="absolute inset-0 w-fit h-fit">
         <motion.div
           animate={loginPanelOpen ? "open" : "closed"}
           className="absolute flex justify-center items-center w-screen h-screen"

@@ -51,7 +51,7 @@ const ItemList = ({ toggleOpen }) => {
   return (
     <motion.ul variants={variants} className="">
       <MenuItem i={0} handler={settingsHandler}>
-        关于
+        设置
       </MenuItem>
       <MenuItem i={1}>归档</MenuItem>
       <MenuItem i={2}>主页</MenuItem>
@@ -89,17 +89,17 @@ export const UserDropdown = () => {
   const { height } = useDimensions(containerRef);
 
   return (
-    <div>
-      <div className="fixed h-full right-0 top-0 flex z-10">
+    <>
+      <div className="fixed h-auto w-auto inset-6 flex z-0">
         <motion.nav
-          className="motion-nav"
+          className="motion-nav h-16 w-16"
           initial={false}
           animate={isOpen ? "open" : "closed"}
           custom={height}
           ref={containerRef}
         >
           <motion.div
-            className="background bg-pigliver-300 shadow-2xlg border-2 border-pigliver-400 rounded-xl"
+            className="background bg-white shadow-2xlg border-2 border-pigliver-400 rounded-xl"
             variants={sidebar}
           />
           <div
@@ -112,7 +112,7 @@ export const UserDropdown = () => {
         </motion.nav>
       </div>
       {isOpen && <LoginRequired failCallback={() => toggleOpen()} />}
-    </div>
+    </>
   );
 };
 

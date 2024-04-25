@@ -100,8 +100,8 @@ const ImageGallery = ({ images }) => {
           </div>
         ))}
       </div>
-      <div className="absolute top-0 left-0 h-[60vh] w-full bg-black opacity-30" />
-      <div className="absolute top-0 left-0 h-[60vh] w-full opacity-60 vignette" />
+      <div className="absolute top-0 left-0 h-[60vh] w-full bg-black opacity-30 z-0" />
+      <div className="absolute top-0 left-0 h-[60vh] w-full opacity-60 vignette z-0" />
       <div className="absolute md:top-[49vh] sm:top-[51vh] left-0 h-auto w-full">
         <p className="px-8 text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl opacity-90 text-nowrap first-sentence">
           {first_sentence()}
