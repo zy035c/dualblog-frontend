@@ -90,16 +90,16 @@ export const UserDropdown = () => {
 
   return (
     <>
-      <div className="fixed h-auto w-auto inset-6 flex z-0">
+      <div className="relative flex min-h-16 min-w-16 overflow-visible">
         <motion.nav
-          className="motion-nav h-16 w-16"
+          className="motion-nav flex h-screen"
           initial={false}
           animate={isOpen ? "open" : "closed"}
           custom={height}
           ref={containerRef}
         >
           <motion.div
-            className="background bg-white shadow-2xlg border-2 border-pigliver-400 rounded-xl"
+            className="background bg-white opacity-90 shadow-2xlg border-2 border-pigliver-400 rounded-xl"
             variants={sidebar}
           />
           <div

@@ -82,13 +82,31 @@ const TimelineOption = () => {
     return (
         <Button
             variant='outline'
-            className="flex align h-[54px] rounded-[50px] w-[160px] opacity-85 border-[3px] bg-gumi-green"
+            className="flex align h-[54px] rounded-[50px] w-auto opacity-85 border-[3px] bg-gumi-green"
             onClick={() => nav("/posts")}
         >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pl-2 text-[16px]'>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text text-[16px] pl-3'>
                 时间线
             </motion.div>
             <ReaderIcon className='mx-2' />
+        </Button>
+    );
+}
+
+const MainPageOption = () => {
+
+    const nav = useNavigate();
+
+    return (
+        <Button
+            variant='outline'
+            className="flex align h-[54px] rounded-[50px] w-[100px] opacity-85 border-[3px] bg-gumi-orange"
+            onClick={() => nav("/")}
+        >
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text text-[16px] text-center align-text-top'>
+                主页
+            </motion.div>
+            {/* <ReaderIcon className='mx-2' /> */}
         </Button>
     );
 }
@@ -111,11 +129,13 @@ export function HeaderMenu() {
             <DbLogo />
             <div className="fixed inset-1 inset-y-3 z-20 h-fit flex flex-row-reverse items-start justify-start p-4">
                 <UserDropdown />
-                <div className='mr-36'>
+                <div className='mr-10'>
                     <TimelineOption />
                 </div>
-
-                <div className='mr-24'>
+                <div className='mr-10'>
+                    <MainPageOption />
+                </div>
+                <div className='mr-12'>
                     <HeaderOptions />
                 </div>
 
