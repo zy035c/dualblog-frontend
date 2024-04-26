@@ -38,7 +38,8 @@ const DbLogo = () => {
             <img
                 src="/index/db_logo/logo-green.png"
                 alt="logo"
-                className='flex overflow-hidden w-[230px] h-[110px] object-center object-cover select-none' />
+                className='flex overflow-hidden w-[230px] h-[110px] object-center object-cover select-none'
+            />
         </motion.div>
     );
 }
