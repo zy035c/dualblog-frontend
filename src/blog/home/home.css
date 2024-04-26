@@ -16,9 +16,9 @@ h1 {
 }
 
 .about-question {
-    font-family: "Noto Sans SC";
-    font-size: 18px;
-    font-weight: 600;
+    font-family: "Noto Sans SC", "Rubik";
+    font-size: 17px;
+    font-weight: 500;
 }
 
 h3 {
@@ -36,8 +36,9 @@ h5 {
 }
 
 h6 {
-    font-family: "Noto Serif SC";
-    font-weight: 700;
+    font-family: "Noto Sans JP", "Noto Sans SC";
+    font-weight: 600;
+    font-size: 17px;
 }
 
 .banner-code-dualblog {
@@ -46,15 +47,51 @@ h6 {
     line-height: 56px;
     text-align: center;
     opacity: 85%;
+}
+
+.banner-tech {
+    font-family: "Rubik";
     font-weight: 700;
+    text-align: center;
+    opacity: 85%;
 }
 
 .sub-title {
     font-family: "Noto Sans SC";
     font-weight: 700;
     letter-spacing: 1px;
-    /* text-shadow: -1px 1px 0 white,
-        1px 1px 0 white,
-        1px -1px 0 white,
-        -1px -1px 0 white; */
+}
+
+/* .corner-triangle {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    width: 50px;
+    height: 50px;
+    transform: rotate(45deg);
+} */
+
+img[alt="GITHUB"] {
+    scale: 1.64;
+}
+
+img[alt="SPRING BOOT 3.0"] {
+    scale: 1.35;
+    transform: translate(0px, -5px);
+}
+
+
+img[alt="REACT.JS"] {
+    scale: 1.22;
+    transform: translate(0px, 5px);
+}
+
+img[alt="TAILWIND CSS"] {
+    scale: 1.85;
+    transform: translate(24px, 1px);
+}
+
+img[alt="LINUX UBUNTU"] {
+    scale: 1.70;
+    transform: translate(32px, -1px);
 }
