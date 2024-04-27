@@ -60,7 +60,7 @@ export default function BlogEditor() {
 
     if (!content) {
       toast({
-        title: "标题可以为空：）但是不能发布空内容哦。",
+        title: "标题可以为空：）但是不可以发布空内容哦。",
         description: empty_blog_warning(),
       });
       return;
