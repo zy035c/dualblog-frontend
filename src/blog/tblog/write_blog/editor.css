@@ -1,0 +1,12 @@
+.blog-title-input {
+    font-family: 'Noto Sans SC', 'Rubik';
+    font-size: large;
+    font-weight: 500;
+}
+
+.blog-content-input {
+    font-family: 'Noto Serif SC', 'Rubik';
+    font-weight: 300;
+    /* auto wrap. set line spacing */
+    line-height: 1.4;
+}

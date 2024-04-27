@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { postNewBlog } from "src/apis/api_blog";
 import { LoginRequired } from "src/blog/user/login";
 import PlaygroundPage from "./write_blog/editor";
 
 const NewPostSignIn = () => {
-  //   const isLoggedIn = !!localStorage.getItem("dualblog-token");
 
   return (
     <div>
@@ -16,60 +13,10 @@ const NewPostSignIn = () => {
   );
 };
 
-const BlogWriter = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      let resp = await postNewBlog(title, content);
-      console.log(resp);
-    } catch (error) {
-      console.error("Error submitting post:", error);
-    }
-  };
-  return (
-    // <div className="container mx-auto mt-36">
-    //   <form onSubmit={handleSubmit}>
-    //     <div className="mb-4">
-    //       <label htmlFor="title" className="block text-lg font-semibold mb-2">
-    //         Title:
-    //       </label>
-    //       <input
-    //         type="text"
-    //         id="title"
-    //         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-    //         value={title}
-    //         onChange={(e) => setTitle(e.target.value)}
-    //         required
-    //       />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="content" className="block text-lg font-semibold mb-2">
-    //         Content:
-    //       </label>
-    //       <textarea
-    //         id="content"
-    //         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-    //         rows="8"
-    //         value={content}
-    //         onChange={(e) => setContent(e.target.value)}
-    //         required
-    //       ></textarea>
-    //     </div>
-    //     <button
-    //       type="submit"
-    //       className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600"
-    //     >
-    //       Submit
-    //     </button>
-    //   </form>
-    // </div>
-    <div className="mt-36">
-      <PlaygroundPage />
-    </div>
-  );
-};
+const BlogWriter = () => (
+  <div className="mt-36">
+    <PlaygroundPage />
+  </div>
+);
 
 export default NewPostSignIn;

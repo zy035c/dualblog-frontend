@@ -33,77 +33,7 @@ import {
   AlertDialogTitle,
 } from "src/components/ui/alert-dialog"
 
-const SignUp = () => {
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   username: "",
-  //   phone: "",
-  //   captcha: "",
-  // });
-  // const [errors, setErrors] = useState({});
-  // const nav = useNavigate();
-
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   // Validation
-  //   const newErrors = {};
-  //   if (
-  //     !formData.email ||
-  //     !formData.password ||
-  //     !formData.confirmPassword ||
-  //     !formData.username
-  //   ) {
-  //     newErrors.required = "Please fill out all required fields.";
-  //   }
-  //   if (formData.password !== formData.confirmPassword) {
-  //     newErrors.passwordMatch = "Passwords do not match.";
-  //   }
-  //   if (!validateEmail(formData.email)) {
-  //     newErrors.emailFormat = "Please enter a valid email address.";
-  //   }
-
-  //   if (Object.keys(newErrors).length > 0) {
-  //     setErrors(newErrors);
-  //   } else {
-  //     // Submit form logic here
-  //     console.log("Form submitted:", formData);
-
-  //     const res = await createNewUser(formData);
-  //     // console.log("res:", res);
-  //     if (res.status === "success") {
-  //       console.log("User created successfully:", res);
-  //       toast({
-  //         title: "注册成功",
-  //         description: sign_up_description(true),
-  //         duration: 1500,
-  //       });
-  //       nav("/");
-  //     } else if (res.status === "exists") {
-  //       console.error("Failed to create user:", res);
-  //       toast({
-  //         title: "这个邮箱已被注册",
-  //         description: sign_up_description(false),
-  //         duration: 1500,
-  //       });
-  //     }
-  //   }
-  // };
-
-
-  return (
-    <>
-      <RegisterForm />
-    </>
-  );
-};
-
+const SignUp = () => (<RegisterForm />);
 
 const RegisterForm = () => {
 

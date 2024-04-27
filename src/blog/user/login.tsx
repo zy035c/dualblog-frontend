@@ -168,7 +168,10 @@ const LoginRequired = ({ successCallback, failCallback, children }) => {
     const result = await userLogin(values);
     if (result.status === "success") {
       console.log("[handleLoginSubmit] Token: ", result.data.token);
+      console.log("[handleLoginSubmit] User UUID: ", result.data.uuid);
+
       localStorage.setItem("dualblog-user-token", result.data.token);
+      localStorage.setItem("dualblog-user-uuid", result.data.uuid);
       setIsAuthenticated(true);
       setLoginPanelOpen(false);
       successCallback();

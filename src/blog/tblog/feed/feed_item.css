@@ -1,15 +1,15 @@
 .featured-blog-text {
     color: #c0c0c0;
     opacity: 80%;
-    font-size: 0.88rem;
+    font-size: 15px;
     /* 调整字体大小 */
-    font-weight: 100;
+    font-weight: 400;
     /* 调整字体粗细 */
     letter-spacing: 0.01rem;
     /* 调整字间距 */
     line-height: 1.6rem;
     /* 调整行间距 */
-    font-family: 'Hiragino GB', 'Courier New', Courier, monospace;
+    font-family: 'Noto Sans SC', 'Courier New', Courier, monospace;
 
     /* add a #00ffff cyan theme but darker shadow, closely stick to the font */
     /* 调整字体阴影 */
@@ -17,8 +17,6 @@
 }
 
 .blog-div-bg {
-    margin-left: 160px;
-    width: 840px;
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: rgba(0, 0, 0);
@@ -34,8 +32,8 @@
 
 @keyframes revealText {
     from {
-        opacity: 0.90;
-        transform: translateX(70px);
+        opacity: 0.3;
+        transform: translateX(10px);
     }
 
     to {
@@ -46,7 +44,7 @@
 
 .text-animation {
     display: inline-block;
-    animation: revealText 2.2s cubic-bezier(.39, .55, .17, 1.03) forwards
+    animation: revealText 1.2s cubic-bezier(.39, .55, .17, 1.03) forwards
 }
 
 
@@ -69,7 +67,7 @@
 
 .ease-in-back {
     animation-name: fontFadeIn;
-    animation-duration: 0.8s;
+    animation-duration: 0.4s;
     animation-timing-function: cubic-bezier(.34, .79, .53, 1.15)
 }
 
@@ -138,9 +136,25 @@
 
 .bookmark-timestamp {
     color:black;
-    font-family: "Yasashisa Gothic", sans-serif;
-    font-size: 0.8rem;
+    font-family: "Yasashisa Gothic", "Rubik";
+    font-size: 0.9rem;
     font-weight: 300;
-    line-height: 1.3rem;
+    /* line-height: 1.3rem; */
     letter-spacing: 0.02rem;
+}
+
+.blog-title {
+    font-family: "Noto Serif SC", "Microsoft YaHei";
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.04rem;
+}
+
+.blog-author-name {
+    font-family: "Noto Sans SC", "Microsoft YaHei";
+    font-size: 16.5px;
+    font-weight: 300;
+    color: whitesmoke;
+    letter-spacing: 0.01rem;
+    line-height: 1.3rem;
 }

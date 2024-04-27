@@ -102,6 +102,21 @@ const deleteAccount = async (headers) => {
   return { status: "success" };
 };
 
+const getUserInfo = async (headers) => {
+  if (mode === "dev") {
+    console.log("[getUserInfo] dev get user info success");
+    return { status: "success", data: {} };
+  }
+
+  const parsedData = await simpleGet("/user", "getUserInfo", headers);
+
+  if (parsedData.code !== "200") {
+    console.error("[getUserInfo] get user info failed");
+    return { status: "failed" };
+  }
+  return { status: "success", data: parsedData.data };
+}
+
 export {
   getAllUser,
   createNewUser,
@@ -109,4 +124,5 @@ export {
   userLogin,
   userLogout,
   deleteAccount,
+  getUserInfo
 };

@@ -53,7 +53,7 @@ const HeaderOptions = () => {
         }
         return (
             <MenubarMenu>
-                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='text-md header-menu-option-text flex-grow text-center lg:px-8 md:text-sm lg:text-lg' onClick={onClick}>
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='text-md header-menu-option-text flex-grow text-center lg:px-8 md:text-sm lg:text-lg pb-[1px]' onClick={onClick}>
                     {text}
                 </motion.div>
             </MenubarMenu>
@@ -78,7 +78,7 @@ const TimelineOption = () => {
             className="flex align h-[48px] rounded-[50px] w-auto opacity-85 border-[3px] bg-gumi-green md:text-sm lg:text-lg"
             onClick={() => nav("/posts")}
         >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pl-3'>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pl-3 pb-[1px]'>
                 时间线
             </motion.div>
             <ReaderIcon className='mx-2' />
@@ -94,9 +94,9 @@ const MainPageOption = () => {
             className="flex align h-[48px] rounded-[50px] w-[100px] opacity-85 border-[3px] bg-gumi-orange md:text-sm lg:text-lg"
             onClick={() => nav("/")}
         >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text text-center align-text-top'>
+            <motion.p whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text text-center justify-center items-center pb-[1px]'>
                 主页
-            </motion.div>
+            </motion.p>
             {/* <ReaderIcon className='mx-2' /> */}
         </Button>
     );
