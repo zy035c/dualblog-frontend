@@ -69,7 +69,7 @@ export default function BlogEditor() {
     const resp = await postNewBlog(title, content);
     if (resp.status === "success") {
       toast({
-        title: "已发布。",
+        title: "已发布",
         description: post_blog_text(true),
         duration: 1800,
       });
