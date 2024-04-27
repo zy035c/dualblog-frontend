@@ -75,7 +75,7 @@ export default function PlaygroundPage() {
       toast({
         title: "似乎因为某种原因发布失败了...",
         description: resp.data.msg + post_blog_text(false),
-        duration: 1800,
+        duration: 2300,
       });
     }
   }

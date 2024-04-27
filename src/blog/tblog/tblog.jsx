@@ -69,7 +69,7 @@ const Posts = () => {
   );
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto pt-48">
       <Feed blogs={posts} />
     </div>
   );

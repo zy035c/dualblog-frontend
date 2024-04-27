@@ -17,20 +17,27 @@ const getAllBlog = async () => {
 /* write an api to post a blog with title and content */
 const postNewBlog = async (title, blogContent) => {
   // Form blog json data
-  let userInfo;
+  let resp;
   try {
-    userInfo = await getUserInfo();
+    resp = await getUserInfo({
+      token: localStorage.getItem("dualblog-user-token"),
+    });
   } catch (error) {
     console.error("[postNewBlog] user info error");
+    return { status: "failed", data: { msg: "试试看重新登录吧。", ok: false } };
+  }
+
+  if (resp.status !== "success") {
+    console.error("[postNewBlog] user info failed");
     return { status: "failed", data: { msg: "试试看重新登录吧。", ok: false } };
   }
 
   const postJson = {
     title: title,
     content: blogContent,
-    author: userInfo.username,
-    authorUUID: userInfo.uuid,
-    timestampe: new Date().toISOString(),
+    author: resp.data.username,
+    authorUUID: resp.data.id,
+    timestamp: new Date().toISOString(),
     tags: [], // TODO: add tags
   };
 
@@ -48,7 +55,7 @@ const postNewBlog = async (title, blogContent) => {
   }
   if (!parsedData.data.ok) {
     console.error("[postNewBlog] post failed");
-    return { status: "failed", data: { msg: parsedData.body.msg } };
+    return { status: "failed", data: { msg: parsedData.data.msg } };
   }
   return { status: "success", data: parsedData.data };
 };
