@@ -10,7 +10,7 @@ const getAllBlog = async () => {
     return blog_mock_data;
   }
 
-  const parsedData = await simpleGet("/blog/posts", "getAllBlogPosts");
+  const parsedData = await simpleGet("/blog/all", "getAllBlog");
   return parsedData;
 };
 
