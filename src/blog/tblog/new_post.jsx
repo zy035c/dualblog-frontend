@@ -1,5 +1,5 @@
 import { LoginRequired } from "src/blog/user/login";
-import PlaygroundPage from "./write_blog/editor";
+import BlogEditor from "./write_blog/editor";
 
 const NewPostSignIn = () => {
 
@@ -14,8 +14,8 @@ const NewPostSignIn = () => {
 };
 
 const BlogWriter = () => (
-  <div className="mt-36">
-    <PlaygroundPage />
+  <div className="mt-48">
+    <BlogEditor />
   </div>
 );
 

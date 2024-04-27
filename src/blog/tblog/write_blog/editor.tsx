@@ -39,6 +39,7 @@ import ModelSelectTab from "./form"
 import { toast } from "src/components/ui/use-toast"
 import { empty_blog_warning, post_blog_text } from "src/texts/blog_text"
 import { postNewBlog } from "src/apis/api_blog"
+import { useNavigate } from "react-router-dom"
 
 
 export const metadata = {
@@ -46,11 +47,12 @@ export const metadata = {
   description: "The OpenAI Playground built using the components.",
 }
 
-export default function PlaygroundPage() {
+export default function BlogEditor() {
 
   const [fontSize, setFontSize] = React.useState([18]);
   const titleRef = React.useRef<HTMLInputElement>(null);
   const contentRef = React.useRef<HTMLTextAreaElement>(null);
+  const nav = useNavigate();
 
   const handleSubmit = async () => {
     let content = contentRef.current?.value;
@@ -67,10 +69,11 @@ export default function PlaygroundPage() {
     const resp = await postNewBlog(title, content);
     if (resp.status === "success") {
       toast({
-        title: "已发布。",  
+        title: "已发布。",
         description: post_blog_text(true),
         duration: 1800,
       });
+      nav("/posts");
     } else {
       toast({
         title: "似乎因为某种原因发布失败了...",
@@ -78,6 +81,11 @@ export default function PlaygroundPage() {
         duration: 2300,
       });
     }
+  }
+
+  const handleClear = async () => {
+    contentRef.current.value = "";
+    titleRef.current.value = "";
   }
 
   return (
@@ -100,7 +108,15 @@ export default function PlaygroundPage() {
       </div>
       <div className="hidden h-full flex-col md:flex">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <h2 className="text-lg font-semibold">Playground</h2>
+          <Button
+            variant='outline'
+            className="flex h-[48px] rounded-[10px] w-auto opacity-85 border-[3px] bg-gumi-green md:text-sm lg:text-lg"
+            onClick={handleSubmit}
+          >
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pb-[1px] text-white px-2 text-[17px]'>
+              发布
+            </motion.div>
+          </Button>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
             <PresetSelector presets={presets} />
             <PresetSave />
@@ -142,11 +158,11 @@ export default function PlaygroundPage() {
                     <div className="flex flex-row items-center space-x-2 w-auto">
                       <Button
                         variant='outline'
-                        className="flex h-[48px] rounded-[10px] w-auto opacity-85 border-[3px] bg-gray-300 md:text-sm lg:text-lg"
-                        onClick={handleSubmit}
+                        className="flex h-[48px] rounded-[10px] w-auto opacity-85 border-[3px] bg-gumi-red md:text-sm lg:text-lg"
+                        onClick={handleClear}
                       >
-                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pb-[1px] text-black px-2 text-[17px]'>
-                          发布
+                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pb-[1px] text-white px-2 text-[17px]'>
+                          清空
                         </motion.div>
                       </Button>
                       <Button variant="secondary">

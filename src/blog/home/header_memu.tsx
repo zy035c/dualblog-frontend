@@ -109,13 +109,13 @@ export function HeaderMenu() {
             <DbLogo />
             <div className="fixed inset-1 inset-y-3 z-20 h-fit flex flex-row-reverse items-start justify-start p-4">
                 <UserDropdown />
-                <div className='lg:mr-12 md:mr-5'>
+                <div className='xl:mr-12 lg:mr-5'>
                     <TimelineOption />
                 </div>
-                <div className='lg:mr-10 md:mr-4'>
+                <div className='xl:mr-10 lg:mr-4'>
                     <MainPageOption />
                 </div>
-                <div className='lg:mr-12 md:mr-5'>
+                <div className='xl:mr-12 lg:mr-5'>
                     <HeaderOptions />
                 </div>
 
