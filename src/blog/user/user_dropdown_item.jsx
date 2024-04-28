@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { shadeColor } from "src/utils/shade_color";
 import { useNavigate } from "react-router-dom";
 
+import { cn } from "src/lib/utils";
+
 const variants = {
   open: {
     y: 0,
@@ -22,7 +24,6 @@ const variants = {
 const colors = ["#F95860", "#AAD898", "#FAAF5C", "#FDF791", "#FFFFFF"];
 
 const MenuItem = ({ i, children, url, toggleOpen, handler }) => {
-
   const nav = useNavigate();
 
   const style = {
@@ -41,8 +42,9 @@ const MenuItem = ({ i, children, url, toggleOpen, handler }) => {
       handler();
     }
     nav(url);
+    window.scrollTo(0, 0);
     toggleOpen();
-  }
+  };
 
   return (
     <motion.li
@@ -54,10 +56,14 @@ const MenuItem = ({ i, children, url, toggleOpen, handler }) => {
     >
       <div className="icon-placeholder" style={style} />
       <div
-        className={`text-placeholder text-pigliver-950 text-center font-mono justify-center items-center`}
+        className="text-placeholder text-center justify-center items-center"
         style={textStyle}
       >
-        {children}
+        <p className={cn(
+          "dropdown-option-text", 
+          i >= 3 ? "text-gray-900" : "text-white" 
+        )}
+        >{children}</p>
       </div>
     </motion.li>
   );
@@ -67,7 +73,7 @@ MenuItem.defaultProps = {
   children: "",
   handler: null,
   url: "/",
-  toggleOpen: () => {}
+  toggleOpen: () => {},
 };
 
 export { MenuItem };

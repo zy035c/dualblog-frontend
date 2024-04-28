@@ -23,6 +23,7 @@ const DbLogo = () => {
         setTimeout(() => {
             setShaking(false);
         }, 200);
+        window.scrollTo(0, 0);
         nav("/");
     }
 
