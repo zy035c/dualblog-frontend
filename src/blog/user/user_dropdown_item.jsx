@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { shadeColor } from "src/utils/shade_color";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   open: {
@@ -20,7 +21,10 @@ const variants = {
 
 const colors = ["#F95860", "#AAD898", "#FAAF5C", "#FDF791", "#FFFFFF"];
 
-const MenuItem = ({ i, children, handler }) => {
+const MenuItem = ({ i, children, url, toggleOpen, handler }) => {
+
+  const nav = useNavigate();
+
   const style = {
     border: `2px solid ${shadeColor(colors[i], -0.05)}`,
     backgroundColor: shadeColor(colors[i], -0.005),
@@ -31,13 +35,22 @@ const MenuItem = ({ i, children, handler }) => {
     backgroundColor: colors[i],
   };
 
+  const onClick = () => {
+    console.log(`${children} clicked`);
+    if (handler) {
+      handler();
+    }
+    nav(url);
+    toggleOpen();
+  }
+
   return (
     <motion.li
       className="motion-li"
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      onClick={handler}
+      onClick={onClick}
     >
       <div className="icon-placeholder" style={style} />
       <div
@@ -51,7 +64,10 @@ const MenuItem = ({ i, children, handler }) => {
 };
 
 MenuItem.defaultProps = {
-  handler: () => {},
+  children: "",
+  handler: null,
+  url: "/",
+  toggleOpen: () => {}
 };
 
 export { MenuItem };

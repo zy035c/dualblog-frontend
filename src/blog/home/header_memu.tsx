@@ -53,7 +53,12 @@ const HeaderOptions = () => {
         }
         return (
             <MenubarMenu>
-                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='text-md header-menu-option-text flex-grow text-center lg:px-8 md:text-sm lg:text-lg pb-[1px]' onClick={onClick}>
+                <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className='text-md header-menu-option-text flex-grow text-center lg:px-8 md:text-sm lg:text-lg pb-[1px]'
+                    onClick={onClick}
+                >
                     {text}
                 </motion.div>
             </MenubarMenu>
@@ -63,9 +68,9 @@ const HeaderOptions = () => {
     return (
         <Menubar className='flex rounded-[50px] border-white bg-gray-300 opacity-85 h-[48px] md:w-72 lg:w-fit px-8 border-[3px] items-center justify-center flex-row'>
             <OptionSpan text={"关于"} path={"/about"} />
-            <OptionSpan text={"注册"} path={"signup"} />
-            <OptionSpan text={"写博"} path={"write_post"} />
-            <OptionSpan text={"搜索"} path={""} />
+            <OptionSpan text={"注册"} path={"/signup"} />
+            <OptionSpan text={"写博"} path={"/write_post"} />
+            <OptionSpan text={"搜索"} path={"/search"} />
         </Menubar>
     );
 }

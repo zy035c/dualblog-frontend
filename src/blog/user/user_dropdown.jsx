@@ -24,12 +24,6 @@ const variants = {
 const ItemList = ({ toggleOpen }) => {
   const nav = useNavigate();
 
-  const settingsHandler = () => {
-    console.log("settings clicked");
-    nav("/settings");
-    toggleOpen();
-  };
-
   const logoutHandler = async () => {
     const result = await userLogout({
       token: localStorage.getItem("dualblog-user-token"),
@@ -43,22 +37,16 @@ const ItemList = ({ toggleOpen }) => {
         duration: 2000,
       });
       console.log("[user_dropdown]logging out success");
-      nav("/");
-      toggleOpen();
     }
   };
 
   return (
     <motion.ul variants={variants} className="">
-      <MenuItem i={0} handler={settingsHandler}>
-        设置
-      </MenuItem>
-      <MenuItem i={1}>归档</MenuItem>
-      <MenuItem i={2}>主页</MenuItem>
-      <MenuItem i={3}>私信</MenuItem>
-      <MenuItem i={4} handler={logoutHandler}>
-        登出
-      </MenuItem>
+      <MenuItem i={0} url="/settings" children="设置" toggleOpen={toggleOpen}/>
+      <MenuItem i={1} url="/catalog" children="归档" toggleOpen={toggleOpen}/>
+      <MenuItem i={2} url="/home" children="主页" toggleOpen={toggleOpen}/>
+      <MenuItem i={3} url="/messages" children="私信" toggleOpen={toggleOpen}/>
+      <MenuItem i={4} url="/" children="登出" handler={logoutHandler} toggleOpen={toggleOpen}/>
     </motion.ul>
   );
 };

@@ -45,7 +45,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-    bio: "I own a computer.",
+    bio: "为足浴行业添砖java，给顾客python到家",
     urls: [
         { value: "https://shadcn.com" },
         { value: "http://twitter.com/shadcn" },
@@ -83,13 +83,12 @@ export function ProfileForm() {
                     name="username"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel className="text-2xl text-white">网名</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input placeholder="爱捉人的斯大林学长" {...field} />
                             </FormControl>
-                            <FormDescription>
-                                This is your public display name. It can be your real name or a
-                                pseudonym. You can only change this once every 30 days.
+                            <FormDescription className="text-gray-900">
+                                在这里修改展示给他人的名字。虽然很难达到，但是实际上长度是有上限的。尽量避免使用一个很长的英文词，会展示不完全。不要改的太频繁哦。
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -100,11 +99,11 @@ export function ProfileForm() {
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel className="text-2xl text-white">电子邮箱</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select a verified email to display" />
+                                        <SelectValue placeholder="你们给我搞的这个东西啊，excited!" />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
@@ -113,9 +112,9 @@ export function ProfileForm() {
                                     <SelectItem value="m@support.com">m@support.com</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <FormDescription>
-                                You can manage verified email addresses in your{" "}
-                                <Link to="/examples/forms">email settings</Link>.
+                            <FormDescription className="text-gray-900">
+                                看好了，邮箱之力是这样用的：电子邮箱是唯一的身份识别，一个电子邮箱只能对应一个账号。
+                                <Link to="/examples/forms"></Link>
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -126,10 +125,9 @@ export function ProfileForm() {
                     name="bio"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Bio</FormLabel>
+                            <FormLabel className="text-2xl text-white">简介</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Tell us a little bit about yourself"
                                     className="resize-none"
                                     {...field}
                                 />
@@ -150,7 +148,7 @@ export function ProfileForm() {
                             name={`urls.${index}.value`}
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className={cn(index !== 0 && "sr-only")}>
+                                    <FormLabel className={cn("text-2xl text-white", index !== 0 && "sr-only")}>
                                         URLs
                                     </FormLabel>
                                     <FormDescription className={cn(index !== 0 && "sr-only")}>
