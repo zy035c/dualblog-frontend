@@ -4,10 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const customColors = `
+const textColor = {
+  ayaya: 'rgb(var(--text) / <alpha-value>)',
+}
+`
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <script dangerouslySetInnerHTML={{__html: customColors}}></script>
   </React.StrictMode>
 );
 

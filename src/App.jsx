@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <div className="fixed inset-0 overflow-hidden z-[-1] bg-gray-900">
-        <div className="fixed inset-0 overflow-hidden z-[-1] bg-gradient-to-br from-gumi-green via-gumi-white to-gumi-yellow opacity-60" />
+        <div className="fixed inset-0 overflow-hidden z-[-1] bg-gradient-to-br from-theme-color-1 via-theme-color-2 to-theme-color-3 opacity-60" />
       </div>
       <BrowserRouter>
         <Routes>

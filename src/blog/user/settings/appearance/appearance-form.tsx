@@ -19,6 +19,8 @@ import {
 import { RadioGroup, RadioGroupItem } from "src/components/ui/radio-group"
 import { toast } from "src/components/ui/use-toast"
 import * as React from 'react';
+import { Card } from "src/components/ui/card"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "src/components/ui/select"
 
 const appearanceFormSchema = z.object({
   theme: z.enum(["light", "dark"], {
@@ -91,7 +93,7 @@ export function AppearanceForm() {
           name="theme"
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel>Theme</FormLabel>
+              <FormLabel>主题</FormLabel>
               <FormDescription>
                 Select the theme for the dashboard.
               </FormDescription>
@@ -158,8 +160,48 @@ export function AppearanceForm() {
           )}
         />
 
+        <div className="flex flex-col">
+          <h5 className="text-2xl text-light text-gumi-white text-left">配色方案</h5>
+
+          <div className="flex flex-row w-full mt-4">
+            <ColorGrid name="主色彩" colorId="theme-color-1" />
+            <ColorGrid name="主题色2" colorId="theme-color-1" />
+            <ColorGrid name="主题色3" colorId="theme-color-1" />
+          </div>
+        </div>
         <Button type="submit">Update preferences</Button>
       </form>
     </Form>
+  )
+}
+
+const ColorGrid = ({ name, colorId }) => {
+
+  const handleChange = (value) => {
+
+    const oldColor = document.documentElement.style.getPropertyValue(`${colorId}`);
+    console.log(oldColor);
+  }
+
+  return (
+    <div className="text-left mx-8 w-16 items-center justify-center">
+      <h5 className="mb-0 pb-0">{name}</h5>
+
+      <Select onValueChange={handleChange}>
+        <SelectTrigger className="w-full h-10 flex">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="blueberry">Blueberry</SelectItem>
+            <SelectItem value="grapes">Grapes</SelectItem>
+            <SelectItem value="pineapple">Pineapple</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   )
 }

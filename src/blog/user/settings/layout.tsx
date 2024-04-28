@@ -10,6 +10,8 @@ import SettingsAccountPage from "./account/page";
 import SettingsAppearancePage from "./appearance/page";
 import SettingsDisplayPage from "./display/page";
 
+import "./layout.css";
+
 export const metadata = {
   title: "Forms",
   description: "Advanced form example using react-hook-form and Zod.",
@@ -17,23 +19,23 @@ export const metadata = {
 
 const sidebarNavItems = [
   {
-    title: "Profile",
+    title: "账户",
     href: "./profile",
   },
   {
-    title: "Account",
+    title: "账户",
     href: "./account",
   },
   {
-    title: "Appearance",
+    title: "外观主题",
     href: "./appearance",
   },
   {
-    title: "Notifications",
+    title: "通知",
     href: "./notifications",
   },
   {
-    title: "Display",
+    title: "显示",
     href: "./display",
   },
 ]
@@ -61,12 +63,9 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
           className="hidden dark:block"
         />
       </div>
-      <div className="hidden space-y-6 p-10 pb-16 md:block bg-white">
+      <div className="hidden space-y-6 p-10 pb-16 md:block pt-36">
         <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-          <p className="text-muted-foreground">
-            Manage your account settings and set e-mail preferences.
-          </p>
+          <h3 className="text-4xl tracking-tight text-left text-gumi-white opacity-85 font-light settings-title">个人设置</h3>
         </div>
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 h-screen">
