@@ -30,40 +30,48 @@ const TechCard = ({ url, name }) => {
   const fadeIn = async () => {
     setHovering();
 
-    controls.stop()
-    await controls.start({
-      x: -2000,
-    },
-    {
-      duration: 0,
-    });
-    await controls.start({
-      x: 0,
-    },
-    {
-      duration: 0.4,
-      ease: [0.17, 0.81, 0.41, 0.92],
-    });
+    controls.stop();
+    await controls.start(
+      {
+        x: -2000,
+      },
+      {
+        duration: 0,
+      }
+    );
+    await controls.start(
+      {
+        x: 0,
+      },
+      {
+        duration: 0.55,
+        ease: [0.17, 0.81, 0.41, 0.92],
+      }
+    );
   };
 
   const fadeOut = async () => {
     setHovering();
 
-    controls.stop()
-    await controls.start({
-      x: "100vw",
-    },
-    {
-      duration: 0.4,
-      ease: [0.17, 0.81, 0.41, 0.92],
-    });
+    controls.stop();
+    await controls.start(
+      {
+        x: "100vw",
+      },
+      {
+        duration: 0.55,
+        ease: [0.17, 0.81, 0.41, 0.92],
+      }
+    );
 
-    await controls.start({
-      x: -2000,
-    },
-    {
-      duration: 0,
-    });
+    await controls.start(
+      {
+        x: -2000,
+      },
+      {
+        duration: 0,
+      }
+    );
   };
 
   return (
@@ -72,45 +80,49 @@ const TechCard = ({ url, name }) => {
       onMouseEnter={() => fadeIn()}
       onMouseLeave={() => fadeOut()}
     >
-      <Card className="rounded-none h-36 relative overflow-hidden bg-opacity-100 w-screen bg-white">
-        <div className="flex flex-row justify-start h-auto z-10 px-8">
+      <Card className="rounded-none h-36 relative overflow-hidden w-screen bg-white">
+          {/* Overlay */}
           <motion.div
-            className="w-fit h-fit"
+          className="absolute inset-0 h-full w-[100vw] bg-theme-color-1 opacity-25"
+          initial={{ x: "-100vw" }}
+          animate={controls}
+        />
+        <div className="flex flex-row justify-start h-auto px-8">
+          <motion.div
+            className="w-fit h-fit opacity-100 flex items-center justify-center"
             variants={{
               unhover: {
                 scale: 0.95,
+                z: 1,
                 transition: {
                   ease: "easeOut",
-                  duration: 0.2
-                }
+                  duration: 0.2,
+                },
               },
               hover: {
                 scale: 1,
+                z: 1,
                 transition: {
                   ease: "easeOut",
-                  duration: 0.2
-                }
-              }
+                  duration: 0.2,
+                },
+              },
             }}
             animate={isHovering ? "hover" : "unhover"}
           >
             <img
               src={url}
-              className="max-h-36 relative w-[260px] object-contain z-10 ml-2"
+              className="max-h-36 w-[260px] object-contain ml-2 h-auto"
               alt={name}
-            ></img>
+            />
+           
           </motion.div>
-          <h1 className="flex md:text-4xl sm:text-3xl pt-12 ml-64 z-10 pointer-events-none">
+          <h1 className="flex md:text-4xl sm:text-3xl pt-12 ml-64 z-20 pointer-events-none">
             {name}
           </h1>
         </div>
+      
       </Card>
-      {/* Overlay */}
-      <motion.div
-        className="absolute inset-0 h-full w-[100vw] bg-gumi-green bg-opacity-25"
-        initial={{ x: "-100vw" }}
-        animate={controls}
-      />
     </div>
   );
 };
@@ -155,7 +167,7 @@ const PoweredBy = () => {
       <p className="flex md:text-[42px] sm:text-2xl pt-12 text-white sub-title pl-12">
         技术栈
       </p>
-      <h6 className="pb-12 pl-12 pt-4 text-gumi-green">フレームワーク</h6>
+      <h6 className="pb-12 pl-12 pt-4 text-theme-color-1">フレームワーク</h6>
       <div className="bg-gray-300 opacity-95 w-full h-10 flex flex-row items-center justify-center overflow-hidden">
         <BannerTech />
         <BannerTech />
@@ -233,7 +245,7 @@ const AboutUs = () => (
       <h1 className="flex md:text-5xl sm:text-3xl pt-12 text-white">
         YES, INDEED...
       </h1>
-      <h6 className="about-question mb-12 mt-1 text-gumi-green">
+      <h6 className="about-question mb-12 mt-1 text-theme-color-1">
         「Dual Blog」是？
       </h6>
       <h5 className="flex md:text-xl sm:text-lg pb-6 text-white">

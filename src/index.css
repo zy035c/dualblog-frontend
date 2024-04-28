@@ -20,3 +20,9 @@ code {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
 }
+
+:root {
+  --theme-color-1: #AAD898;;
+  --theme-color-2: #ffffff;
+  --theme-color-3: #FDF791;
+}

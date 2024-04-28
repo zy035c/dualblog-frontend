@@ -64,7 +64,7 @@ export function AppearanceForm() {
           name="font"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Font</FormLabel>
+              <FormLabel className="text-2xl text-white">字体</FormLabel>
               <div className="relative w-max">
                 <FormControl>
                   <select
@@ -81,8 +81,8 @@ export function AppearanceForm() {
                 </FormControl>
                 <ChevronDownIcon className="absolute right-3 top-2.5 h-4 w-4 opacity-50" />
               </div>
-              <FormDescription>
-                Set the font you want to use in the dashboard.
+              <FormDescription className="text-gray-900">
+                选择全局字体方案。（功能还没做好，去休息一会再回来吧）
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -93,9 +93,9 @@ export function AppearanceForm() {
           name="theme"
           render={({ field }) => (
             <FormItem className="space-y-1">
-              <FormLabel>主题</FormLabel>
-              <FormDescription>
-                Select the theme for the dashboard.
+              <FormLabel className="text-2xl text-white">主题</FormLabel>
+              <FormDescription className="text-gray-900">
+                功能暂未上线，敬请期待～
               </FormDescription>
               <FormMessage />
               <RadioGroup
@@ -161,12 +161,12 @@ export function AppearanceForm() {
         />
 
         <div className="flex flex-col">
-          <h5 className="text-2xl text-light text-gumi-white text-left">配色方案</h5>
+          <h5 className="text-2xl text-light text-gumi-white text-left font-['-apple-system']">配色方案</h5>
 
-          <div className="flex flex-row w-full mt-4">
+          <div className="flex flex-row w-full mt-2">
             <ColorGrid name="主色彩" colorId="theme-color-1" />
-            <ColorGrid name="主题色2" colorId="theme-color-1" />
-            <ColorGrid name="主题色3" colorId="theme-color-1" />
+            <ColorGrid name="主题色2" colorId="theme-color-2" />
+            <ColorGrid name="主题色3" colorId="theme-color-3" />
           </div>
         </div>
         <Button type="submit">Update preferences</Button>
@@ -175,30 +175,57 @@ export function AppearanceForm() {
   )
 }
 
+const themeColorOptions = [
+  {
+    name: "gumi-green",
+    rgb: "#AAD898"
+  },
+  {
+    name: "gumi-red",
+    rgb: "#F95860"
+  },
+  {
+    name: "gumi-orange",
+    rgb: "#FAAF5C"
+  },
+  {
+    name: "gumi-white",
+    rgb: "#ffffff"
+  },
+  {
+    name: "gumi-yellow",
+    rgb: "#FDF791"
+  }
+];
+
 const ColorGrid = ({ name, colorId }) => {
 
   const handleChange = (value) => {
-
-    const oldColor = document.documentElement.style.getPropertyValue(`${colorId}`);
-    console.log(oldColor);
+    const propertyName = `--${colorId}`;
+    console.log("Set", propertyName, "to", value);
+    document.documentElement.style.setProperty(
+      propertyName,
+      value
+    );
   }
 
   return (
     <div className="text-left mx-8 w-16 items-center justify-center">
-      <h5 className="mb-0 pb-0">{name}</h5>
+      <h5 className="mb-0 pb-0 text-white">{name}</h5>
 
       <Select onValueChange={handleChange}>
-        <SelectTrigger className="w-full h-10 flex">
+        <SelectTrigger
+          className={cn("w-full h-10 flex", `bg-${colorId}`)}>
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="fixed">
           <SelectGroup>
-            <SelectLabel>Fruits</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
+            <SelectLabel></SelectLabel>
+            {
+              themeColorOptions.map((option, _) => (
+                <SelectItem value={option.rgb}>{option.name}</SelectItem>
+              ))
+            }
           </SelectGroup>
         </SelectContent>
       </Select>

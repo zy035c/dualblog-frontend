@@ -120,7 +120,7 @@ const NavItem = ({ item, pathstr }) => {
         {item.title}
       </motion.p>
       <motion.div
-        className="absolute bg-gumi-green h-6 z-[-1] translate-y-[-16px]"
+        className="absolute bg-theme-color-1 h-6 z-[-1] translate-y-[-16px]"
         animate={controls}
         initial={{ width: "0em" }}
       >

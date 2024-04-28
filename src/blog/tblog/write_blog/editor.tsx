@@ -110,7 +110,7 @@ export default function BlogEditor() {
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
           <Button
             variant='outline'
-            className="flex h-[48px] rounded-[10px] w-auto opacity-85 border-[3px] bg-gumi-green md:text-sm lg:text-lg"
+            className="flex h-[48px] rounded-[10px] w-auto opacity-85 border-[3px] bg-theme-color-1 md:text-sm lg:text-lg"
             onClick={handleSubmit}
           >
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pb-[1px] text-white px-2 text-[17px]'>

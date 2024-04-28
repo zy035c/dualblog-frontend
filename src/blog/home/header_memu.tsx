@@ -75,7 +75,7 @@ const TimelineOption = () => {
     return (
         <Button
             variant='outline'
-            className="flex align h-[48px] rounded-[50px] w-auto opacity-85 border-[3px] bg-gumi-green md:text-sm lg:text-lg"
+            className="flex align h-[48px] rounded-[50px] w-auto opacity-85 border-[3px] bg-theme-color-1 md:text-sm lg:text-lg"
             onClick={() => nav("/posts")}
         >
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text pl-3 pb-[1px]'>
@@ -91,7 +91,7 @@ const MainPageOption = () => {
     return (
         <Button
             variant='outline'
-            className="flex align h-[48px] rounded-[50px] w-[100px] opacity-85 border-[3px] bg-gumi-orange md:text-sm lg:text-lg"
+            className="flex align h-[48px] rounded-[50px] w-[100px] opacity-85 border-[3px] bg-theme-color-3 md:text-sm lg:text-lg"
             onClick={() => nav("/")}
         >
             <motion.p whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className='header-menu-option-text text-center justify-center items-center pb-[1px]'>

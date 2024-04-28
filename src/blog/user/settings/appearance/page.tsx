@@ -4,15 +4,7 @@ import * as React from 'react';
 
 export default function SettingsAppearancePage() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Appearance</h3>
-        <p className="text-sm text-muted-foreground">
-          Customize the appearance of the app. Automatically switch between day
-          and night themes.
-        </p>
-      </div>
-      <Separator />
+    <div className="space-y-6 pt-4">
       <AppearanceForm />
     </div>
   )

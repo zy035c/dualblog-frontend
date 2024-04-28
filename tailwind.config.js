@@ -71,9 +71,9 @@ module.exports = {
           yellow: "#FDF791",
           white: "#FFFFFF",
         },
-        'theme-color-1': "#AAD898",
-        'theme-color-2': "#FFFFFF",
-        'theme-color-3': "#FDF791",
+        'theme-color-1': "var(--theme-color-1)",
+        'theme-color-2': "var(--theme-color-2)",
+        'theme-color-3': "var(--theme-color-3)",
       },
       borderRadius: {
         lg: "var(--radius)",

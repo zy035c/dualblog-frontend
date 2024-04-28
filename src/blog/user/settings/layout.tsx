@@ -19,7 +19,7 @@ export const metadata = {
 
 const sidebarNavItems = [
   {
-    title: "账户",
+    title: "个人资料",
     href: "./profile",
   },
   {
@@ -63,7 +63,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
           className="hidden dark:block"
         />
       </div>
-      <div className="hidden space-y-6 p-10 pb-16 md:block pt-36">
+      <div className="hidden space-y-6 p-10 pb-16 md:block pt-44">
         <div className="space-y-0.5">
           <h3 className="text-4xl tracking-tight text-left text-gumi-white opacity-85 font-light settings-title">个人设置</h3>
         </div>

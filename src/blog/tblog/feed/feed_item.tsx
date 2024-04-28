@@ -4,8 +4,8 @@ import "./feed_item.css";
 
 const BookmarkDeco = () => (
   <div className="absolute right-2 top-8 flex w-fit h-fit flex-row">
-    <div className="relative z-30 h-8 w-24 bg-gumi-green bookmark-deco"></div>
-    <div className="relative flex mx-4 z-30 h-8 w-fit bg-gumi-green items-center bookmark-timestamp">
+    <div className="relative z-30 h-8 w-24 bg-theme-color-1 bookmark-deco"></div>
+    <div className="relative flex mx-4 z-30 h-8 w-fit bg-theme-color-1 items-center bookmark-timestamp">
       <p className="relative text-center px-4">2024-03-26</p>
     </div>
   </div>
@@ -13,7 +13,7 @@ const BookmarkDeco = () => (
 
 const AvatarAndName = ({ blog }) => (
   <div className="flex flex-col items-center justify-center w-36 h-fit mt-4">
-    <div className="flex relative w-16 h-16 opacity-70 border-white border-4 rounded-full bg-gumi-green">{/* TODO */}</div>
+    <div className="flex relative w-16 h-16 opacity-70 border-white border-4 rounded-full bg-theme-color-1">{/* TODO */}</div>
     <div className='w-p6 h-auto line-clamp-2 items-center justify-center mt-2 text-wrap w-32 inline-block truncate'>
       <h6 className="text-center blog-author-name">{blog.author}</h6>
     </div>
