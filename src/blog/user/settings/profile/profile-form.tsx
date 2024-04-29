@@ -88,7 +88,7 @@ export function ProfileForm() {
                                 <Input placeholder="爱捉人的斯大林学长" {...field} />
                             </FormControl>
                             <FormDescription className="text-gray-900">
-                                在这里修改展示给他人的名字。虽然很难达到，但是实际上长度是有上限的。尽量避免使用一个很长的英文词，会展示不完全。不要改的太频繁哦。
+                                在这里修改展示给他人的名字。虽然很难达到，但是实际上长度是有上限的。尽量避免使用一个很长的英文词，会显示示不完全。不要改的太频繁哦。
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

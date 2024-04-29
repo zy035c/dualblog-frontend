@@ -42,7 +42,7 @@ const ItemList = ({ toggleOpen }) => {
 
   return (
     <motion.ul variants={variants} className="">
-      <MenuItem i={0} url="/settings" children="设置" toggleOpen={toggleOpen}/>
+      <MenuItem i={0} url="/settings/profile" children="设置" toggleOpen={toggleOpen}/>
       <MenuItem i={1} url="/catalog" children="归档" toggleOpen={toggleOpen}/>
       <MenuItem i={2} url="/home" children="主页" toggleOpen={toggleOpen}/>
       <MenuItem i={3} url="/messages" children="私信" toggleOpen={toggleOpen}/>
