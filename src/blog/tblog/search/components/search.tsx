@@ -32,10 +32,15 @@ import {
 import { TooltipProvider } from "src/components/ui/tooltip"
 import { AccountSwitcher } from "./account-switcher"
 import { MailDisplay } from "./mail-display"
-import { MailList } from "./mail-list"
+import { MailList } from "./search-list"
 import { Nav } from "./nav"
 import { type Mail } from "../data"
 import { useMail } from "../use-mail"
+
+import "./search.css"
+import { Popover, PopoverContent, PopoverTrigger } from "src/components/ui/popover"
+import { Label } from "src/components/ui/label"
+import { searchBlogsForKeyword } from "src/apis/api_blog"
 
 interface MailProps {
   accounts: {
@@ -58,6 +63,23 @@ export function Mail({
 }: MailProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
   const [mail] = useMail()
+
+  const [keyword, setKeyword] = React.useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // 阻止表单默认提交行为
+    console.log('正在搜索：', keyword);
+    if (keyword === '') {
+      setEmptySearchPopOpen(true);
+      console.log('triggered empty search pop over')
+      return;
+    }
+
+    const result = await searchBlogsForKeyword(keyword);
+
+    console.log("good result", result);
+  };
+  const [emptySearchPopOpen, setEmptySearchPopOpen] = React.useState(true);
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -84,7 +106,7 @@ export function Mail({
           // }}
           className={cn(
             isCollapsed &&
-              "min-w-[50px] transition-all duration-300 ease-in-out"
+            "min-w-[50px] transition-all duration-300 ease-in-out"
           )}
         >
           <div
@@ -177,29 +199,41 @@ export function Mail({
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
           <Tabs defaultValue="all">
-            <div className="flex items-center px-4 py-2">
-              <h1 className="text-xl font-bold">Inbox</h1>
+            <div className="flex items-center px-4 py-2 h-16">
+              <h1 className="text-xl search-title text-gumi-white">搜索</h1>
               <TabsList className="ml-auto">
                 <TabsTrigger
                   value="all"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  All mail
+                  检索
                 </TabsTrigger>
                 <TabsTrigger
                   value="unread"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Unread
+                  高级
                 </TabsTrigger>
               </TabsList>
             </div>
             <Separator />
-            <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <form>
+            <div className="p-4 backdrop-blur bg-opacity-0">
+              <form onSubmit={handleSubmit}>
                 <div className="relative">
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
+                  <Popover open={emptySearchPopOpen} onOpenChange={setEmptySearchPopOpen}>
+                    <PopoverContent 
+                      className="absolute empty-search-popover bg-theme-color-2 p-3"
+                      onClick={() => setEmptySearchPopOpen(false)}
+                    >
+                      不要随便用空搜索，会加重服务器负担的喵～
+                    </PopoverContent>
+                  </Popover>
+                  <Input
+                    placeholder="我不是英雄，只是个拿锤子的约德尔人。"
+                    className="pl-8"
+                    onChange={(e) => { setKeyword(e.target.value) }}
+                  />
                 </div>
               </form>
             </div>

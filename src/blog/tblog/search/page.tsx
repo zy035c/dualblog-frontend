@@ -1,4 +1,4 @@
-import { Mail } from "./components/mail"
+import { Mail } from "./components/search"
 import { accounts, mails } from "./data"
 
 import * as React from 'react';
@@ -7,13 +7,8 @@ import * as React from 'react';
 export default function SearchPage() {
 
   // Mock var
-  const layout = {
-    value: ""
-  };
-
-  const collapsed = {
-    value: ""
-  }
+  const layout = null;
+  const collapsed = null;
 
 
   // const layout = cookies().get("react-resizable-panels:layout")
@@ -23,7 +18,7 @@ export default function SearchPage() {
   const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined
 
   return (
-    <>
+    <div className="pt-28">
       <div className="md:hidden">
         <img
           src="/examples/mail-dark.png"
@@ -49,6 +44,6 @@ export default function SearchPage() {
           navCollapsedSize={4}
         />
       </div>
-    </>
+    </div>
   )
 }

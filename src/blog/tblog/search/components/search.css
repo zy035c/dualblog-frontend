@@ -1,0 +1,11 @@
+.search-title {
+    font-family: 'Noto Sans SC', 'Microsoft YaHei';
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.empty-search-popover {
+    font-family: 'Noto Sans SC', 'Microsoft YaHei';
+    font-weight: 200;
+    font-size: 15px;
+}

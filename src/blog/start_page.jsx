@@ -12,6 +12,7 @@ import SignUp from "./user/sign_up";
 import NewPostSignIn from "./tblog/new_post";
 import SettingsLayout from "src/blog/user/settings/layout";
 import { HeaderMenu } from "./home/header_memu";
+import SearchPage from "./tblog/search/page";
 
 const HeaderOption = ({ to, text }) => {
   return (
@@ -21,23 +22,6 @@ const HeaderOption = ({ to, text }) => {
     >
       {text}
     </Link>
-  );
-};
-
-const DemoHeader = () => {
-  return (
-    <div>
-      <div className="bg-pigliver-400 rounded-md shadow-md p-2 flex justify-between items-center">
-        <div className="flex space-x-2 flex-row">
-          <HeaderOption to="./about" text="About Us" />
-          <HeaderOption to="./primer" text="Primer!" />
-          <HeaderOption to="/" text="Home" />
-          <HeaderOption to="./posts" text="Blog Posts" />
-          <HeaderOption to="./signup" text="Sign Up" />
-          <HeaderOption to="./write_post" text="Write Post" />
-        </div>
-      </div>
-    </div>
   );
 };
 
@@ -70,6 +54,7 @@ const StartPage = () => {
         <Route path="/write_post/*" element={<NewPostSignIn />} />
         <Route path="/primer/*" element={<PrimeList />} />
         <Route path="/settings/*" element={<SettingsLayout />} />
+        <Route path="/search/*" element={<SearchPage />} />
       </Routes>
       <DebugInfo />
     </div>

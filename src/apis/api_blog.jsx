@@ -48,7 +48,12 @@ const postNewBlog = async (title, blogContent) => {
     return { status: "success", data: { msg: "模拟成功", ok: true } };
   }
 
-  const parsedData = await simplePost("/blog", "postNewBlog", postJson);
+  const parsedData = await simplePost(
+    "/blog", 
+    "postNewBlog", 
+    postJson
+  );
+
   if (parsedData.code !== "200") {
     console.error("[postNewBlog] post failed");
     return { status: "failed", data: { msg: "网络异常中～" } };
@@ -60,4 +65,31 @@ const postNewBlog = async (title, blogContent) => {
   return { status: "success", data: parsedData.data };
 };
 
-export { getAllBlog, postNewBlog };
+const searchBlogsForKeyword = async (keyword) => {
+  const postJson = {
+    keyword: keyword
+  };
+  if (mode === "dev") {
+    console.log("[searchForKeyword] dev check post success");
+    return { status: "success", data: { msg: "模拟成功", ok: true } };
+  }
+
+  const parsedData = await simplePost(
+    "/blog/search", 
+    "searchForKeyword", 
+    postJson,
+    {
+
+    }
+  );
+
+  if (parsedData.code !== "200") {
+    console.error("[postNewBlog] post failed");
+    return { status: "failed", data: { msg: "网络异常中～" } };
+  }
+
+  return { status: "success", data: parsedData.data };
+
+}
+
+export { getAllBlog, postNewBlog, searchBlogsForKeyword };
