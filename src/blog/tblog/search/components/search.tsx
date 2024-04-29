@@ -79,7 +79,7 @@ export function Mail({
 
     console.log("good result", result);
   };
-  const [emptySearchPopOpen, setEmptySearchPopOpen] = React.useState(true);
+  const [emptySearchPopOpen, setEmptySearchPopOpen] = React.useState(false);
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -226,7 +226,7 @@ export function Mail({
                       className="absolute empty-search-popover bg-theme-color-2 p-3"
                       onClick={() => setEmptySearchPopOpen(false)}
                     >
-                      不要随便用空搜索，会加重服务器负担的喵～
+                      不要随便用空搜索喵，会加重服务器负担的喵～
                     </PopoverContent>
                   </Popover>
                   <Input
