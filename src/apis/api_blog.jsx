@@ -95,10 +95,9 @@ const searchBlogsForKeyword = async (keyword) => {
   }
 
   const endpoint = `/blog/search?keyword=${keyword}`;
-  const parsedData = await simplePost(
+  const parsedData = await simpleGet(
     endpoint, 
     "searchForKeyword", 
-    null,
     {}
   );
 
