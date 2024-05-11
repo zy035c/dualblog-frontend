@@ -29,7 +29,12 @@ const simpleGet = async (endpoint, endpointName, headers) => {
   return parsed;
 };
 
-const simplePost = async (endpoint, endpointName, data, headers) => {
+const simplePost = async (
+  endpoint,
+  endpointName,
+  data,
+  headers
+) => {
   const response = await fetch(API_URL + endpoint, {
     mode: "cors",
     method: "POST",

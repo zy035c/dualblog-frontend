@@ -82,9 +82,6 @@ const postNewBlog = async (title, blogContent) => {
 };
 
 const searchBlogsForKeyword = async (keyword) => {
-  const postJson = {
-    keyword: keyword
-  };
   if (mode === "dev") {
     console.log("[searchForKeyword] dev check post success");
     return { 
@@ -97,10 +94,11 @@ const searchBlogsForKeyword = async (keyword) => {
     };
   }
 
+  const endpoint = `/blog/search?keyword=${keyword}`;
   const parsedData = await simplePost(
-    "/blog/search", 
+    endpoint, 
     "searchForKeyword", 
-    postJson,
+    null,
     {}
   );
 
