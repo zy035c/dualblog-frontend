@@ -1,5 +1,5 @@
-import { Mail } from "./components/search"
-import { accounts, mails } from "./data"
+import { SearchPanel } from "./components/search-panel"
+import { accounts, initMockBlogPosts } from "./data"
 
 import * as React from 'react';
 
@@ -36,9 +36,9 @@ export default function SearchPage() {
         />
       </div>
       <div className="hidden flex-col md:flex">
-        <Mail
+        <SearchPanel
           accounts={accounts}
-          mails={mails}
+          blogPosts={initMockBlogPosts}
           defaultLayout={defaultLayout}
           defaultCollapsed={defaultCollapsed}
           navCollapsedSize={4}

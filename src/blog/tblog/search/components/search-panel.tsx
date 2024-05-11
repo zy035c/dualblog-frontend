@@ -31,13 +31,13 @@ import {
 } from "src/components/ui/tabs"
 import { TooltipProvider } from "src/components/ui/tooltip"
 import { AccountSwitcher } from "./account-switcher"
-import { MailDisplay } from "./mail-display"
-import { MailList } from "./search-list"
+import { BlogPostDisplay } from "./blog-display"
+import { ResultList } from "./search-list"
 import { Nav } from "./nav"
-import { type Mail } from "../data"
-import { useMail } from "../use-mail"
+import { type BlogPost } from "../data"
+import { useSelectedBlog } from "../use-selected-blog"
 
-import "./search.css"
+import "./search-panel.css"
 import { Popover, PopoverContent, PopoverTrigger } from "src/components/ui/popover"
 import { Label } from "src/components/ui/label"
 import { searchBlogsForKeyword } from "src/apis/api_blog"
@@ -48,36 +48,54 @@ interface MailProps {
     email: string
     icon: React.ReactNode
   }[]
-  mails: Mail[]
+  blogPosts: BlogPost[]
   defaultLayout: number[] | undefined
   defaultCollapsed?: boolean
   navCollapsedSize: number
 }
 
-export function Mail({
+export function SearchPanel({
   accounts,
-  mails,
+  blogPosts,
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,
 }: MailProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
-  const [mail] = useMail()
+  const [selectedBlog, setSelectedBlog] = useSelectedBlog()
+
+  const [blogPostList, setSearchResultList] = React.useState<BlogPost[]>([]);
 
   const [keyword, setKeyword] = React.useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // 阻止表单默认提交行为
-    console.log('正在搜索：', keyword);
     if (keyword === '') {
       setEmptySearchPopOpen(true);
       console.log('triggered empty search pop over')
       return;
     }
+    console.log('正在搜索：', keyword);
 
-    const result = await searchBlogsForKeyword(keyword);
+    const resp = await searchBlogsForKeyword(keyword);
+    if (resp.status === "success") {
+      console.log("[search-panel] success result", resp);
+      const searchResult: BlogPost[] = resp.data.result.map(item => {
+        return {
+          id: item.id || "",
+          author: item.author || "",
+          email: item.email || "",
+          title: item.title || "",
+          content: item.content || "",
+          time: item.time || "",
+          read: item.read || false,
+          labels: item.labels || [],
+        };
+      })
 
-    console.log("good result", result);
+      console.log(`[search-panel] presents ${searchResult.length} good results.`)
+      setSearchResultList(searchResult);
+    }
   };
   const [emptySearchPopOpen, setEmptySearchPopOpen] = React.useState(false);
 
@@ -222,7 +240,7 @@ export function Mail({
                 <div className="relative">
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Popover open={emptySearchPopOpen} onOpenChange={setEmptySearchPopOpen}>
-                    <PopoverContent 
+                    <PopoverContent
                       className="absolute empty-search-popover bg-theme-color-2 p-3"
                       onClick={() => setEmptySearchPopOpen(false)}
                     >
@@ -238,17 +256,17 @@ export function Mail({
               </form>
             </div>
             <TabsContent value="all" className="m-0">
-              <MailList items={mails} />
+              <ResultList items={blogPostList} />
             </TabsContent>
-            <TabsContent value="unread" className="m-0">
-              <MailList items={mails.filter((item) => !item.read)} />
-            </TabsContent>
+            {/* <TabsContent value="unread" className="m-0">
+              <MailList items={searchResultList.filter((item) => !item.read)} />
+            </TabsContent> */}
           </Tabs>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[2]}>
-          <MailDisplay
-            mail={mails.find((item) => item.id === mail.selected) || null}
+          <BlogPostDisplay
+            mail={blogPostList.find((item) => item.id === selectedBlog.selected) || null}
           />
         </ResizablePanel>
       </ResizablePanelGroup>

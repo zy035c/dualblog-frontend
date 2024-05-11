@@ -1,5 +1,6 @@
 import * as React from 'react';
 import "./feed_item.css";
+import { Avatar, AvatarFallback } from 'src/components/ui/avatar';
 
 
 const BookmarkDeco = () => (
@@ -13,7 +14,16 @@ const BookmarkDeco = () => (
 
 const AvatarAndName = ({ blog }) => (
   <div className="flex flex-col items-center justify-center w-36 h-fit mt-4">
-    <div className="flex relative w-16 h-16 opacity-70 border-white border-4 rounded-full bg-theme-color-1">{/* TODO */}</div>
+    {/* <div className="flex relative w-16 h-16 opacity-70 border-white border-4 rounded-full bg-theme-color-1"></div> */}
+    <Avatar className="bg-theme-color-1 w-14 h-14">
+      {/* <AvatarImage alt={blogPost.author} /> */}
+      <AvatarFallback>
+        {blog.author
+          .split(" ")
+          .map((chunk) => chunk[0])
+          .join("")}
+      </AvatarFallback>
+    </Avatar>
     <div className='w-p6 h-auto line-clamp-2 items-center justify-center mt-2 text-wrap w-32 inline-block truncate'>
       <h6 className="text-center blog-author-name">{blog.author}</h6>
     </div>

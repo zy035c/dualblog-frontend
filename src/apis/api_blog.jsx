@@ -1,5 +1,5 @@
 import { simpleGet, simplePost } from "./api";
-import { blog_mock_data } from "src/texts/blog_mock_data";
+import { blog_mock_data, blog_search_mock_data } from "src/texts/blog_mock_data";
 import { getUserInfo } from "./api_user";
 
 const mode = process.env.REACT_APP_MODE;
@@ -7,11 +7,27 @@ const mode = process.env.REACT_APP_MODE;
 const getAllBlog = async () => {
   if (mode === "dev") {
     console.log("[getAllBlog] dev check get success");
-    return blog_mock_data;
+    return {
+      status: "success",
+      data: {
+        result: blog_mock_data
+      }
+    };
   }
-
-  const parsedData = await simpleGet("/blog/all", "getAllBlog");
-  return parsedData;
+  let parsedData;
+  try {
+    parsedData = await simpleGet("/blog/all", "getAllBlog");
+  } catch (error) {
+    console.error("[getAllBlog] error");
+    return { status: "failed", data: { msg: "怪罪给后端。", ok: false } };
+  }
+  return {
+    status: "success",
+    data: {
+      ok: true,
+      result: parsedData
+    }
+  };
 };
 
 /* write an api to post a blog with title and content */
@@ -71,16 +87,21 @@ const searchBlogsForKeyword = async (keyword) => {
   };
   if (mode === "dev") {
     console.log("[searchForKeyword] dev check post success");
-    return { status: "success", data: { msg: "模拟成功", ok: true } };
+    return { 
+      status: "success", 
+      data: { 
+        msg: "模拟成功", 
+        ok: true,
+        result: blog_search_mock_data
+      } 
+    };
   }
 
   const parsedData = await simplePost(
     "/blog/search", 
     "searchForKeyword", 
     postJson,
-    {
-
-    }
+    {}
   );
 
   if (parsedData.code !== "200") {
@@ -88,7 +109,10 @@ const searchBlogsForKeyword = async (keyword) => {
     return { status: "failed", data: { msg: "网络异常中～" } };
   }
 
-  return { status: "success", data: parsedData.data };
+  return { status: "success", data: {
+    ok: true,
+    result: parsedData.data
+  } };
 
 }
 
