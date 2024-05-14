@@ -16,7 +16,10 @@ const getAllBlog = async () => {
   }
   let parsedData;
   try {
-    parsedData = await simpleGet("/blog/all", "getAllBlog");
+    parsedData = await simpleGet(
+      "/blog/all",
+      "getAllBlog"
+    );
   } catch (error) {
     console.error("[getAllBlog] error");
     return { status: "failed", data: { msg: "怪罪给后端。", ok: false } };
@@ -25,7 +28,7 @@ const getAllBlog = async () => {
     status: "success",
     data: {
       ok: true,
-      result: parsedData
+      result: parsedData.data
     }
   };
 };
@@ -67,7 +70,10 @@ const postNewBlog = async (title, blogContent) => {
   const parsedData = await simplePost(
     "/blog", 
     "postNewBlog", 
-    postJson
+    postJson,
+    {
+      token: localStorage.getItem("dualblog-user-token")
+    }
   );
 
   if (parsedData.code !== "200") {
@@ -98,7 +104,9 @@ const searchBlogsForKeyword = async (keyword) => {
   const parsedData = await simpleGet(
     endpoint, 
     "searchForKeyword", 
-    {}
+    {
+      token: localStorage.getItem("dualblog-user-token")
+    }
   );
 
   if (parsedData.code !== "200") {

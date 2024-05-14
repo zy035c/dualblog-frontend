@@ -39,7 +39,7 @@ const simplePost = async (
     mode: "cors",
     method: "POST",
     headers: {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
       ...headers,
     },
