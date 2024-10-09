@@ -1,4 +1,8 @@
-const API_URL = `http://127.0.0.1:8080`;
+const API_URL = `https://7daa-173-46-96-46.ngrok-free.app`;
+// const API_URL = 'localhost:8080';
+const common_headers = {
+  'ngrok-skip-browser-warning': '1'
+}
 
 const printObjectProperties = (obj) => {
   Object.keys(obj).forEach((prop) => {
@@ -14,6 +18,7 @@ const simpleGet = async (endpoint, endpointName, headers) => {
       Accept: "application/json",
       "Content-Type": "application/json",
       ...headers,
+      ...common_headers,
     },
   });
 
@@ -42,6 +47,7 @@ const simplePost = async (
       "Accept": "application/json",
       "Content-Type": "application/json",
       ...headers,
+      ...common_headers,
     },
     body: JSON.stringify(data),
   });
