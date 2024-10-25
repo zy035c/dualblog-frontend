@@ -1,7 +1,7 @@
-const API_URL = `https://7daa-173-46-96-46.ngrok-free.app`;
-// const API_URL = 'localhost:8080';
+// const API_URL = `https://7daa-173-46-96-46.ngrok-free.app`;
+const API_URL = 'http://localhost:8080';
 const common_headers = {
-  'ngrok-skip-browser-warning': '1'
+  // 'ngrok-skip-browser-warning': '1'
 }
 
 const printObjectProperties = (obj) => {
